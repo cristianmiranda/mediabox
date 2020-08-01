@@ -13,3 +13,18 @@ services:
       - /data/2tb/plex/tv:/tv
       - /data/2tb/plex/movies:/movies
     restart: unless-stopped
+
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - /data/2tb/sonarr/config:/config
+      - /data/2tb/plex/tv:/tv
+      - /data/2tb/rutorrent/downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
