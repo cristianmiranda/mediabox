@@ -28,3 +28,19 @@ services:
     ports:
       - 8989:8989
     restart: unless-stopped
+
+  rutorrent:
+    image: linuxserver/rutorrent
+    container_name: rutorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /data/2tb/rutorrent/config:/config
+      - /data/2tb/rutorrent/downloads:/downloads
+    ports:
+      - 80:80
+      - 5000:5000
+      - 51413:51413
+      - 6881:6881/udp
+    restart: unless-stopped
