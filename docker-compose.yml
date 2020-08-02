@@ -13,6 +13,8 @@ services:
       - ${HDD_PATH}/plex/config:/config
       - ${HDD_PATH}/plex/tv:/tv
       - ${HDD_PATH}/plex/movies:/movies
+    devices:
+      - /dev/dri:/dev/dri
     restart: unless-stopped
 
   sonarr:
