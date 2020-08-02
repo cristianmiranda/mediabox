@@ -59,3 +59,17 @@ services:
       - 9117:9117
     restart: unless-stopped
 
+  bazarr:
+    image: linuxserver/bazarr
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - /data/2tb/bazarr/config:/config
+      - /data/2tb/plex/movies:/movies
+      - /data/2tb/plex/tv:/tv
+    ports:
+      - 6767:6767
+    restart: unless-stopped

@@ -4,6 +4,8 @@
 $ tree 2tb -d -L 2
 
 2tb
+├── bazarr
+│   └── config
 ├── jackett
 │   └── config
 ├── plex
@@ -16,13 +18,17 @@ $ tree 2tb -d -L 2
 └── sonarr
     └── config
 
-11 directories
+13 directories
 ```
 
 ## Setup
 
 ```bash
-docker-compose -d plex sonarr rutorrent jackett
+docker-compose -d plex      \
+                  sonarr    \
+                  rutorrent \
+                  jackett   \
+                  bazarr
 ```
 
 ## Links
@@ -31,4 +37,5 @@ docker-compose -d plex sonarr rutorrent jackett
 * https://hub.docker.com/r/linuxserver/sonarr
 * https://hub.docker.com/r/linuxserver/rutorrent
 * https://hub.docker.com/r/linuxserver/jackett
+* https://hub.docker.com/r/linuxserver/bazarr
 
