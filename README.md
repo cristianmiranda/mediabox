@@ -38,7 +38,7 @@ $ tree $HDD_PATH -d -L 2
 docker-compose down
 ```
 
-## Links
+## Docker images
 
 * https://hub.docker.com/r/linuxserver/plex
 * https://hub.docker.com/r/linuxserver/sonarr
@@ -47,3 +47,7 @@ docker-compose down
 * https://hub.docker.com/r/linuxserver/jackett
 * https://hub.docker.com/r/linuxserver/bazarr
 * https://hub.docker.com/r/linuxserver/radarr
+
+## Docs
+
+* https://www.techrepublic.com/article/how-to-properly-automount-a-drive-in-ubuntu-linux/
