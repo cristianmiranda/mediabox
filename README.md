@@ -1,3 +1,7 @@
+## Docker stack
+
+![](https://i.imgur.com/gvPreHt.png)
+
 ## HDD structure
 
 ```bash
