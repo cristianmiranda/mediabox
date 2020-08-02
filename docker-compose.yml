@@ -44,3 +44,18 @@ services:
       - 51413:51413
       - 6881:6881/udp
     restart: unless-stopped
+
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Argentina/Buenos_Aires
+      - AUTO_UPDATE=true
+    volumes:
+      - /data/2tb/jackett/config:/config
+    ports:
+      - 9117:9117
+    restart: unless-stopped
+
