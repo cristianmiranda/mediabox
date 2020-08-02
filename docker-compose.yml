@@ -24,7 +24,7 @@ services:
     volumes:
       - /data/2tb/sonarr/config:/config
       - /data/2tb/plex/tv:/tv
-      - /data/2tb/rutorrent/downloads:/downloads
+      - /data/2tb/transmission/downloads:/downloads
     ports:
       - 8989:8989
     restart: unless-stopped
