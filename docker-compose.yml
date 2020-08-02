@@ -10,9 +10,9 @@ services:
       - PGID=1000
       - VERSION=docker
     volumes:
-      - /data/2tb/plex/config:/config
-      - /data/2tb/plex/tv:/tv
-      - /data/2tb/plex/movies:/movies
+      - ${HDD_PATH}/plex/config:/config
+      - ${HDD_PATH}/plex/tv:/tv
+      - ${HDD_PATH}/plex/movies:/movies
     restart: unless-stopped
 
   sonarr:
@@ -23,10 +23,10 @@ services:
       - PGID=1000
       - TZ=America/Argentina/Buenos_Aires
     volumes:
-      - /data/2tb/sonarr/config:/config
-      - /data/2tb/plex/tv:/tv
-      # - /data/2tb/rutorrent/downloads:/downloads
-      - /data/2tb/transmission/downloads:/downloads
+      - ${HDD_PATH}/sonarr/config:/config
+      - ${HDD_PATH}/plex/tv:/tv
+      # - ${HDD_PATH}/rutorrent/downloads:/downloads
+      - ${HDD_PATH}/transmission/downloads:/downloads
     ports:
       - 8989:8989
     networks:
@@ -43,9 +43,9 @@ services:
       - TZ=America/Argentina/Buenos_Aires
       - TRANSMISSION_WEB_HOME=/transmission-web-control/
     volumes:
-      - /data/2tb/transmission/config:/config
-      - /data/2tb/transmission/downloads:/downloads
-      - /data/2tb/transmission/watch:/watch
+      - ${HDD_PATH}/transmission/config:/config
+      - ${HDD_PATH}/transmission/downloads:/downloads
+      - ${HDD_PATH}/transmission/watch:/watch
     ports:
       - 9091:9091
       - 51413:51413
@@ -62,8 +62,8 @@ services:
 #      - PUID=1000
 #      - PGID=1000
 #    volumes:
-#      - /data/2tb/rutorrent/config:/config
-#      - /data/2tb/rutorrent/downloads:/downloads
+#      - ${HDD_PATH}/rutorrent/config:/config
+#      - ${HDD_PATH}/rutorrent/downloads:/downloads
 #    ports:
 #      - 80:80
 #      - 5000:5000
@@ -85,7 +85,7 @@ services:
       - TZ=America/Argentina/Buenos_Aires
       - AUTO_UPDATE=true
     volumes:
-      - /data/2tb/jackett/config:/config
+      - ${HDD_PATH}/jackett/config:/config
     ports:
       - 9117:9117
     networks:
@@ -101,9 +101,9 @@ services:
       - PGID=1000
       - TZ=America/Argentina/Buenos_Aires
     volumes:
-      - /data/2tb/bazarr/config:/config
-      - /data/2tb/plex/movies:/movies
-      - /data/2tb/plex/tv:/tv
+      - ${HDD_PATH}/bazarr/config:/config
+      - ${HDD_PATH}/plex/movies:/movies
+      - ${HDD_PATH}/plex/tv:/tv
     ports:
       - 6767:6767
     networks:
@@ -119,10 +119,10 @@ services:
       - PGID=1000
       - TZ=America/Argentina/Buenos_Aires
     volumes:
-      - /data/2tb/radarr/config:/config
-      - /data/2tb/plex/movies:/movies
-      # - /data/2tb/rutorrent/downloads:/downloads
-      - /data/2tb/transmission/downloads:/downloads
+      - ${HDD_PATH}/radarr/config:/config
+      - ${HDD_PATH}/plex/movies:/movies
+      # - ${HDD_PATH}/rutorrent/downloads:/downloads
+      - ${HDD_PATH}/transmission/downloads:/downloads
     ports:
       - 7878:7878
     networks:
