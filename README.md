@@ -1,7 +1,7 @@
 ## HDD structure
 
 ```bash
-$ tree 2tb -d -L 2
+$ tree $HDD_PATH -d -L 2
 
 2tb
 ├── bazarr
@@ -12,6 +12,8 @@ $ tree 2tb -d -L 2
 │   ├── config
 │   ├── movies
 │   └── tv
+├── radarr
+│   └── config
 ├── rutorrent
 │   ├── config
 │   └── downloads
@@ -22,14 +24,13 @@ $ tree 2tb -d -L 2
     ├── downloads
     └── watch
 
-17 directories
+19 directories
 ```
 
 ## Setup
 
-```bash
-docker-compose up -d
-```
+1. Replace `HDD_PATH` with the path of your mass storage drive
+2. Run `docker-compose up -d`
 
 ## Teardown
 
