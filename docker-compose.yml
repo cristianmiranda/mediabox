@@ -29,6 +29,24 @@ services:
       - 8989:8989
     restart: unless-stopped
 
+  transmission:
+    image: linuxserver/transmission
+    container_name: transmission
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Argentina/Buenos_Aires
+      - TRANSMISSION_WEB_HOME=/transmission-web-control/
+    volumes:
+      - /data/2tb/transmission/config:/config
+      - /data/2tb/transmission/downloads:/downloads
+      - /data/2tb/transmission/watch:/watch
+    ports:
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+    restart: unless-stopped
+
   rutorrent:
     image: linuxserver/rutorrent
     container_name: rutorrent
