@@ -22,3 +22,10 @@ $ tree 2tb -d -L 2
 ```bash
 docker-compose -d plex sonarr rutorrent
 ```
+
+## Links
+
+* https://hub.docker.com/r/linuxserver/plex
+* https://hub.docker.com/r/linuxserver/sonarr
+* https://hub.docker.com/r/linuxserver/rutorrent
+
