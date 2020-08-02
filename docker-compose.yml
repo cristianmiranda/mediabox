@@ -30,7 +30,7 @@ services:
     ports:
       - 8989:8989
     networks:
-      multimedia_default:
+      default:
         ipv4_address: 172.20.0.2
     restart: unless-stopped
 
@@ -51,30 +51,30 @@ services:
       - 51413:51413
       - 51413:51413/udp
     networks:
-      multimedia_default:
+      default:
         ipv4_address: 172.20.0.3
     restart: unless-stopped
 
-  rutorrent:
-    image: linuxserver/rutorrent
-    container_name: rutorrent
-    environment:
-      - PUID=1000
-      - PGID=1000
-    volumes:
-      - /data/2tb/rutorrent/config:/config
-      - /data/2tb/rutorrent/downloads:/downloads
-    ports:
-      - 80:80
-      - 5000:5000
-      - 51413:51413
-      - 6881:6881/udp
-    networks:
-      multimedia_default:
-        # This IP address conflicts with Transmission
-        # The idea is to keep .0.3 for the default torrent client
-        ipv4_address: 172.20.0.3
-    restart: unless-stopped
+#  rutorrent:
+#    image: linuxserver/rutorrent
+#    container_name: rutorrent
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#    volumes:
+#      - /data/2tb/rutorrent/config:/config
+#      - /data/2tb/rutorrent/downloads:/downloads
+#    ports:
+#      - 80:80
+#      - 5000:5000
+#      - 51413:51413
+#      - 6881:6881/udp
+#    networks:
+#      multimedia_default:
+#        # This IP address conflicts with Transmission
+#        # The idea is to keep .0.3 for the default torrent client
+#        ipv4_address: 172.20.0.3
+#    restart: unless-stopped
 
   jackett:
     image: linuxserver/jackett
@@ -89,7 +89,7 @@ services:
     ports:
       - 9117:9117
     networks:
-      multimedia_default:
+      default:
         ipv4_address: 172.20.0.4
     restart: unless-stopped
 
@@ -107,14 +107,33 @@ services:
     ports:
       - 6767:6767
     networks:
-      multimedia_default:
+      default:
         ipv4_address: 172.20.0.5
     restart: unless-stopped
 
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - /data/2tb/radarr/config:/config
+      - /data/2tb/plex/movies:/movies
+      # - /data/2tb/rutorrent/downloads:/downloads
+      - /data/2tb/transmission/downloads:/downloads
+    ports:
+      - 7878:7878
+    networks:
+      default:
+        ipv4_address: 172.20.0.6
+    restart: unless-stopped
+
 networks:
-  multimedia_default:
+  default:
     ipam:
       driver: default
-        config:
-          - subnet: 172.20.0.0/16
+      config:
+        - subnet: 172.20.0.0/16
 

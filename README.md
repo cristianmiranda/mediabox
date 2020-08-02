@@ -28,11 +28,13 @@ $ tree 2tb -d -L 2
 ## Setup
 
 ```bash
-docker-compose -d plex         \
-                  sonarr       \
-                  transmission \
-                  jackett      \
-                  bazarr
+docker-compose up -d
+```
+
+## Teardown
+
+```bash
+docker-compose down
 ```
 
 ## Links
@@ -43,4 +45,4 @@ docker-compose -d plex         \
 * https://hub.docker.com/r/linuxserver/transmission
 * https://hub.docker.com/r/linuxserver/jackett
 * https://hub.docker.com/r/linuxserver/bazarr
-
+* https://hub.docker.com/r/linuxserver/radarr
