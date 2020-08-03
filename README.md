@@ -1,3 +1,5 @@
+![](https://i.imgur.com/lRWVysP.jpg)
+
 ## Docker stack
 
 ![](https://i.imgur.com/gvPreHt.png)
