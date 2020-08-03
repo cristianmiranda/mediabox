@@ -20,9 +20,6 @@ $ tree $HDD_PATH -d -L 2
 │   └── tv
 ├── radarr
 │   └── config
-├── rutorrent
-│   ├── config
-│   └── downloads
 ├── sonarr
 │   └── config
 └── transmission
@@ -30,7 +27,7 @@ $ tree $HDD_PATH -d -L 2
     ├── downloads
     └── watch
 
-19 directories
+16 directories
 ```
 
 ## Setup
@@ -61,7 +58,6 @@ docker-compose down
 
 * https://hub.docker.com/r/linuxserver/plex
 * https://hub.docker.com/r/linuxserver/sonarr
-* https://hub.docker.com/r/linuxserver/rutorrent
 * https://hub.docker.com/r/linuxserver/transmission
 * https://hub.docker.com/r/linuxserver/jackett
 * https://hub.docker.com/r/linuxserver/bazarr

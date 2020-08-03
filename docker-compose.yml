@@ -27,7 +27,6 @@ services:
     volumes:
       - ${HDD_PATH}/sonarr/config:/config
       - ${HDD_PATH}/plex/tv:/tv
-      # - ${HDD_PATH}/rutorrent/downloads:/downloads
       - ${HDD_PATH}/transmission/downloads:/downloads
     ports:
       - 8989:8989
@@ -56,27 +55,6 @@ services:
       default:
         ipv4_address: 172.20.0.3
     restart: unless-stopped
-
-#  rutorrent:
-#    image: linuxserver/rutorrent
-#    container_name: rutorrent
-#    environment:
-#      - PUID=1000
-#      - PGID=1000
-#    volumes:
-#      - ${HDD_PATH}/rutorrent/config:/config
-#      - ${HDD_PATH}/rutorrent/downloads:/downloads
-#    ports:
-#      - 80:80
-#      - 5000:5000
-#      - 51413:51413
-#      - 6881:6881/udp
-#    networks:
-#      multimedia_default:
-#        # This IP address conflicts with Transmission
-#        # The idea is to keep .0.3 for the default torrent client
-#        ipv4_address: 172.20.0.3
-#    restart: unless-stopped
 
   jackett:
     image: linuxserver/jackett
@@ -123,7 +101,6 @@ services:
     volumes:
       - ${HDD_PATH}/radarr/config:/config
       - ${HDD_PATH}/plex/movies:/movies
-      # - ${HDD_PATH}/rutorrent/downloads:/downloads
       - ${HDD_PATH}/transmission/downloads:/downloads
     ports:
       - 7878:7878
