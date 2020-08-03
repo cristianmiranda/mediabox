@@ -42,6 +42,19 @@ $ tree $HDD_PATH -d -L 2
 docker-compose down
 ```
 
+## Configuration
+
+### Plex
+![](https://imgur.com/tTZM8Xr.png)
+![](https://imgur.com/24rtdJv.png)
+
+### Sonarr / Radarr
+![](https://imgur.com/DpIkOwh.png)
+![](https://imgur.com/3Urh1mb.png)
+
+### Transmission
+![](https://imgur.com/Rib2L9E.png)
+
 ## Docker images
 
 * https://hub.docker.com/r/linuxserver/plex
