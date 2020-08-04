@@ -32,13 +32,26 @@ $ tree $HDD_PATH -d -L 2
 
 ## Setup
 
-1. Replace `HDD_PATH` with the path of your mass storage drive
-2. Run `docker-compose up -d`
+Replace `HDD_PATH` with the path of your mass storage drive
 
-## Teardown
+## Starting
+
+```bash
+docker-compose up -d
+```
+
+## Stopping
 
 ```bash
 docker-compose down
+```
+
+## Updating
+
+```bash
+docker-compose down
+docker-compose pull
+docker-compose up -d
 ```
 
 ## Configuration
