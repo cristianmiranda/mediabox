@@ -10,9 +10,9 @@ services:
       - PGID=1000
       - VERSION=docker
     volumes:
-      - ${HDD_PATH}/plex/config:/config
-      - ${HDD_PATH}/plex/tv:/tv
-      - ${HDD_PATH}/plex/movies:/movies
+      - ${PLEX}/config:/config
+      - ${TV_SHOWS}:/tv
+      - ${MOVIES}:/movies
     devices:
       - /dev/dri:/dev/dri
     restart: unless-stopped
@@ -25,9 +25,9 @@ services:
       - PGID=1000
       - TZ=America/Argentina/Buenos_Aires
     volumes:
-      - ${HDD_PATH}/sonarr/config:/config
-      - ${HDD_PATH}/plex/tv:/tv
-      - ${HDD_PATH}/transmission/downloads:/downloads
+      - ${SONARR}/config:/config
+      - ${TV_SHOWS}:/tv
+      - ${TORRENT_DOWNLOADS}:/downloads
     ports:
       - 8989:8989
     networks:
@@ -44,9 +44,9 @@ services:
 #      - TZ=America/Argentina/Buenos_Aires
 #      - TRANSMISSION_WEB_HOME=/transmission-web-control/
 #    volumes:
-#      - ${HDD_PATH}/transmission/config:/config
-#      - ${HDD_PATH}/transmission/downloads:/downloads
-#      - ${HDD_PATH}/transmission/watch:/watch
+#      - ${TRANSMISSION}/config:/config
+#      - ${TORRENT_DOWNLOADS}:/downloads
+#      - ${TRANSMISSION}/watch:/watch
 #    ports:
 #      - 9091:9091
 #      - 51413:51413
@@ -64,8 +64,8 @@ services:
       - PGID=1000
       - TZ=America/Argentina/Buenos_Aires
     volumes:
-      - ${HDD_PATH}/deluge/config:/config
-      - ${HDD_PATH}/deluge/downloads:/downloads
+      - ${DELUGE}/config:/config
+      - ${TORRENT_DOWNLOADS}:/downloads
     ports:
       - 8112:8112
     networks:
@@ -82,7 +82,7 @@ services:
       - TZ=America/Argentina/Buenos_Aires
       - AUTO_UPDATE=true
     volumes:
-      - ${HDD_PATH}/jackett/config:/config
+      - ${JACKETT}/config:/config
     ports:
       - 9117:9117
     networks:
@@ -98,9 +98,9 @@ services:
       - PGID=1000
       - TZ=America/Argentina/Buenos_Aires
     volumes:
-      - ${HDD_PATH}/bazarr/config:/config
-      - ${HDD_PATH}/plex/movies:/movies
-      - ${HDD_PATH}/plex/tv:/tv
+      - ${BAZARR}/config:/config
+      - ${MOVIES}:/movies
+      - ${TV_SHOWS}:/tv
     ports:
       - 6767:6767
     networks:
@@ -116,9 +116,9 @@ services:
       - PGID=1000
       - TZ=America/Argentina/Buenos_Aires
     volumes:
-      - ${HDD_PATH}/radarr/config:/config
-      - ${HDD_PATH}/plex/movies:/movies
-      - ${HDD_PATH}/transmission/downloads:/downloads
+      - ${RADARR}/config:/config
+      - ${MOVIES}:/movies
+      - ${TORRENT_DOWNLOADS}:/downloads
     ports:
       - 7878:7878
     networks:
