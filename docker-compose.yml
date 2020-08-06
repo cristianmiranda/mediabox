@@ -35,27 +35,6 @@ services:
         ipv4_address: 172.20.0.2
     restart: unless-stopped
 
-#  transmission:
-#    image: linuxserver/transmission
-#    container_name: transmission
-#    environment:
-#      - PUID=1000
-#      - PGID=1000
-#      - TZ=America/Argentina/Buenos_Aires
-#      - TRANSMISSION_WEB_HOME=/transmission-web-control/
-#    volumes:
-#      - ${TRANSMISSION}/config:/config
-#      - ${TORRENT_DOWNLOADS}:/downloads
-#      - ${TRANSMISSION}/watch:/watch
-#    ports:
-#      - 9091:9091
-#      - 51413:51413
-#      - 51413:51413/udp
-#    networks:
-#      default:
-#        ipv4_address: 172.20.0.3
-#    restart: unless-stopped
-
   deluge:
     image: linuxserver/deluge
     container_name: deluge
