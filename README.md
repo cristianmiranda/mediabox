@@ -22,12 +22,11 @@ $ tree $HDD_PATH -d -L 2
 │   └── config
 ├── sonarr
 │   └── config
-└── transmission
+└── deluge
     ├── config
     ├── downloads
-    └── watch
 
-16 directories
+15 directories
 ```
 
 ## Setup
@@ -71,7 +70,7 @@ docker-compose up -d
 
 * https://hub.docker.com/r/linuxserver/plex
 * https://hub.docker.com/r/linuxserver/sonarr
-* https://hub.docker.com/r/linuxserver/transmission
+* https://hub.docker.com/r/linuxserver/deluge
 * https://hub.docker.com/r/linuxserver/jackett
 * https://hub.docker.com/r/linuxserver/bazarr
 * https://hub.docker.com/r/linuxserver/radarr

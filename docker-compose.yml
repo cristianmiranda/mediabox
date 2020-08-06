@@ -35,22 +35,39 @@ services:
         ipv4_address: 172.20.0.2
     restart: unless-stopped
 
-  transmission:
-    image: linuxserver/transmission
-    container_name: transmission
+#  transmission:
+#    image: linuxserver/transmission
+#    container_name: transmission
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - TZ=America/Argentina/Buenos_Aires
+#      - TRANSMISSION_WEB_HOME=/transmission-web-control/
+#    volumes:
+#      - ${HDD_PATH}/transmission/config:/config
+#      - ${HDD_PATH}/transmission/downloads:/downloads
+#      - ${HDD_PATH}/transmission/watch:/watch
+#    ports:
+#      - 9091:9091
+#      - 51413:51413
+#      - 51413:51413/udp
+#    networks:
+#      default:
+#        ipv4_address: 172.20.0.3
+#    restart: unless-stopped
+
+  deluge:
+    image: linuxserver/deluge
+    container_name: deluge
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Argentina/Buenos_Aires
-      - TRANSMISSION_WEB_HOME=/transmission-web-control/
     volumes:
-      - ${HDD_PATH}/transmission/config:/config
-      - ${HDD_PATH}/transmission/downloads:/downloads
-      - ${HDD_PATH}/transmission/watch:/watch
+      - ${HDD_PATH}/deluge/config:/config
+      - ${HDD_PATH}/deluge/downloads:/downloads
     ports:
-      - 9091:9091
-      - 51413:51413
-      - 51413:51413/udp
+      - 8112:8112
     networks:
       default:
         ipv4_address: 172.20.0.3
