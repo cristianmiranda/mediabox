@@ -24,7 +24,7 @@ $ tree $HDD_PATH -d -L 2
 │   └── config
 └── deluge
     ├── config
-    ├── downloads
+    └── downloads
 
 15 directories
 ```
@@ -65,6 +65,7 @@ docker-compose up -d
 
 ### Deluge
 ![](https://i.imgur.com/IlifmXH.png)
+![](https://i.imgur.com/3ufH1za.png)
 
 ### Transmission
 ![](https://imgur.com/Rib2L9E.png)
