@@ -63,6 +63,9 @@ docker-compose up -d
 ![](https://imgur.com/DpIkOwh.png)
 ![](https://imgur.com/3Urh1mb.png)
 
+### Deluge
+![](https://i.imgur.com/IlifmXH.png)
+
 ### Transmission
 ![](https://imgur.com/Rib2L9E.png)
 
