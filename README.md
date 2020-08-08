@@ -2,7 +2,7 @@
 
 ## Docker stack
 
-![](https://i.imgur.com/gvPreHt.png)
+![](https://i.imgur.com/fML1jLO.png)
 
 ## HDD structure
 
@@ -15,23 +15,24 @@ $ tree $HDD_PATH -d -L 2
 ├── jackett
 │   └── config
 ├── plex
-│   ├── config
-│   ├── movies
-│   └── tv
+│   └── config
 ├── radarr
 │   └── config
 ├── sonarr
 │   └── config
-└── deluge
-    ├── config
-    └── downloads
+├── deluge
+|   ├── config
+|   └── downloads
+├── tv
+└── movies
 
 15 directories
 ```
 
 ## Setup
 
-Replace `HDD_PATH` with the path of your mass storage drive
+Replace `HDD_PATH` with the path of your mass storage drive.
+It might be a good idea to clone this repo inside the external disk if you plan to use it on different machines/architectures.
 
 ## Starting
 
