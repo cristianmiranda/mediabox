@@ -84,3 +84,4 @@ docker-compose up -d
 
 * https://www.tecmint.com/create-new-ext4-file-system-partition-in-linux/
 * https://www.techrepublic.com/article/how-to-properly-automount-a-drive-in-ubuntu-linux/
+* https://support.plex.tv/articles/naming-and-organizing-your-tv-show-files/
