@@ -58,6 +58,7 @@ docker-compose up -d
 
 _(Use your own local IP address)_
 
+* Muximux: http://192.168.50.244:80
 * Plex: http://192.168.50.244:32400/web/index.html
 * Sonarr: http://192.168.50.244:8989
 * Radarr: http://192.168.50.244:7878
@@ -90,6 +91,7 @@ _(Use your own local IP address)_
 * https://hub.docker.com/r/linuxserver/jackett
 * https://hub.docker.com/r/linuxserver/bazarr
 * https://hub.docker.com/r/linuxserver/radarr
+* https://hub.docker.com/r/linuxserver/muximux
 
 ## Docs
 

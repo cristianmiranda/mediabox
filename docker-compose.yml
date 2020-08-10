@@ -105,6 +105,20 @@ services:
         ipv4_address: 172.20.0.6
     restart: unless-stopped
 
+  muximux:
+    image: linuxserver/muximux
+    container_name: muximux
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - ${MUXIMUX}:/config
+    ports:
+      - 80:80
+    restart: unless-stopped
+
 networks:
   default:
     ipam:
