@@ -1,8 +1,8 @@
-![](https://i.imgur.com/lRWVysP.jpg)
+![](https://i.imgur.com/NHvoGC1.jpg)
 
 ## Docker stack
 
-![](https://i.imgur.com/fML1jLO.png)
+![](https://i.imgur.com/ni19vKz.png)
 
 ## HDD structure
 
