@@ -98,3 +98,4 @@ _(Use your own local IP address)_
 * https://www.tecmint.com/create-new-ext4-file-system-partition-in-linux/
 * https://www.techrepublic.com/article/how-to-properly-automount-a-drive-in-ubuntu-linux/
 * https://support.plex.tv/articles/naming-and-organizing-your-tv-show-files/
+* https://support.plex.tv/articles/202485658-restore-a-database-backed-up-via-scheduled-tasks/
