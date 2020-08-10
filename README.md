@@ -31,7 +31,7 @@ $ tree $HDD_PATH -d -L 2
 
 ## Setup
 
-Replace `HDD_PATH` with the path of your mass storage drive.
+Replace all paths in `.env` with whatever makes sense for you (follow the comments above each property).
 It might be a good idea to clone this repo inside the external disk if you plan to use it on different machines/architectures.
 
 ## Starting
@@ -53,6 +53,17 @@ docker-compose down
 docker-compose pull
 docker-compose up -d
 ```
+
+## Services
+
+_(Use your own local IP address)_
+
+* Plex: http://192.168.50.244:32400/web/index.html
+* Sonarr: http://192.168.50.244:8989
+* Radarr: http://192.168.50.244:7878
+* Bazarr: http://192.168.50.244:6767
+* Deluge: http://192.168.50.244:8112
+* Jackett: http://192.168.50.244:9117
 
 ## Configuration
 
