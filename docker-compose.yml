@@ -14,8 +14,6 @@ services:
       - ${TV_SHOWS}:/tv
       - ${MOVIES}:/movies
       - ${PICTURES}:/pictures
-    devices:
-      - /dev/dri:/dev/dri
     restart: unless-stopped
 
   sonarr:

@@ -5,7 +5,10 @@ services:
     volumes:
       - /data/4WD/media/tv:/wd-4tb-tv
       - /data/4WD/media/movies:/wd-4tb-movies
-
+    devices:
+      # Enables Hardware Transcoding if available
+      - /dev/dri:/dev/dri
+  
   sonarr:
     volumes:
       - /data/4WD/media/tv:/wd-4tb-tv
