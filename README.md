@@ -1,61 +1,66 @@
 ![](https://i.imgur.com/NHvoGC1.jpg)
 
 ## Docker stack
-
 ![](https://i.imgur.com/ni19vKz.png)
 
 ## HDD structure
-
 ```bash
 $ tree $HDD_PATH -d -L 2
 
 2tb
 ├── bazarr
 │   └── config
+├── deluge
+│   ├── config
+│   └── downloads
 ├── jackett
 │   └── config
+├── media
+│   ├── movies
+│   ├── pictures
+│   └── tv
+├── muximux
+│   ├── keys
+│   ├── log
+│   ├── muximux
+│   ├── nginx
+│   ├── php
+│   └── www
 ├── plex
 │   └── config
 ├── radarr
 │   └── config
-├── sonarr
-│   └── config
-├── deluge
-|   ├── config
-|   └── downloads
-├── tv
-└── movies
+├── repo
+└── sonarr
+    └── config
 
-15 directories
+25 directories
 ```
 
 ## Setup
-
-Replace all paths in `.env` with whatever makes sense for you (follow the comments above each property).
-It might be a good idea to clone this repo inside the external disk if you plan to use it on different machines/architectures.
+* Replace all paths in `.env` with whatever makes sense for you (follow the comments above each property).
+* Use `docker-compose.override.yml` for adding additional media libraries.
+* It might be a good idea to clone this repo inside the external disk if you plan to use it on different machines/architectures.
 
 ## Starting
-
 ```bash
 docker-compose up -d
 ```
 
 ## Stopping
-
 ```bash
 docker-compose down
 ```
 
 ## Updating
-
 ```bash
 docker-compose down
 docker-compose pull
 docker-compose up -d
+docker image prune
 ```
 
 ## Services
-
 _(Use your own local IP address)_
 
 * Muximux: http://192.168.50.244:80
@@ -67,7 +72,6 @@ _(Use your own local IP address)_
 * Jackett: http://192.168.50.244:9117
 
 ## Configuration
-
 ### Plex
 ![](https://imgur.com/tTZM8Xr.png)
 ![](https://imgur.com/24rtdJv.png)
@@ -84,7 +88,6 @@ _(Use your own local IP address)_
 ![](https://imgur.com/Rib2L9E.png)
 
 ## Docker images
-
 * https://hub.docker.com/r/linuxserver/plex
 * https://hub.docker.com/r/linuxserver/sonarr
 * https://hub.docker.com/r/linuxserver/deluge
@@ -94,7 +97,6 @@ _(Use your own local IP address)_
 * https://hub.docker.com/r/linuxserver/muximux
 
 ## Docs
-
 * https://www.tecmint.com/create-new-ext4-file-system-partition-in-linux/
 * https://www.techrepublic.com/article/how-to-properly-automount-a-drive-in-ubuntu-linux/
 * https://support.plex.tv/articles/naming-and-organizing-your-tv-show-files/
