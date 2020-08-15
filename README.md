@@ -1,3 +1,7 @@
+# Mediabox
+
+![](https://github.com/cristianmiranda/mediabox/workflows/Multimedia%20Stack%20Deployment/badge.svg)
+
 ![](https://i.imgur.com/NHvoGC1.jpg)
 
 ## Docker stack
