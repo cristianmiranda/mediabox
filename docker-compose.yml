@@ -143,6 +143,21 @@ services:
       - ${HOME}/.docker/config.json:/config.json
     command: --label-enable --cleanup --schedule "0 4 * * *"
 
+  portainer:
+    image: portainer/portainer
+    container_name: portainer
+    network_mode: host
+    command: -H unix:///var/run/docker.sock
+    restart: always
+    ports:
+      - 9000:9000
+      - 8000:8000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${PORTAINER}:/data
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
 networks:
   default:
     ipam:
