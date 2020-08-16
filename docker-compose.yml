@@ -22,7 +22,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=America/Argentina/Buenos_Aires
+      - TZ=${TIMEZONE}
     volumes:
       - ${SONARR}/config:/config
       - ${TV_SHOWS}:/tv
@@ -40,7 +40,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=America/Argentina/Buenos_Aires
+      - TZ=${TIMEZONE}
     volumes:
       - ${DELUGE}/config:/config
       - ${TORRENT_DOWNLOADS}:/downloads
@@ -57,7 +57,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=America/Argentina/Buenos_Aires
+      - TZ=${TIMEZONE}
       - AUTO_UPDATE=true
     volumes:
       - ${JACKETT}/config:/config
@@ -74,7 +74,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=America/Argentina/Buenos_Aires
+      - TZ=${TIMEZONE}
     volumes:
       - ${BAZARR}/config:/config
       - ${MOVIES}:/movies
@@ -92,7 +92,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=America/Argentina/Buenos_Aires
+      - TZ=${TIMEZONE}
     volumes:
       - ${RADARR}/config:/config
       - ${MOVIES}:/movies
@@ -110,7 +110,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=America/Argentina/Buenos_Aires
+      - TZ=${TIMEZONE}
     volumes:
       - ${MUXIMUX}:/config
     ports:
