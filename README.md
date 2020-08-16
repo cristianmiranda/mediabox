@@ -8,6 +8,7 @@
 ![](https://i.imgur.com/ni19vKz.png)
 
 ## HDD structure
+All directories are created upon start, automatically (if don't exist).
 ```bash
 $ tree $HDD_PATH -d -L 2
 
