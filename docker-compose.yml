@@ -158,6 +158,25 @@ services:
     labels:
       - com.centurylinklabs.watchtower.enable=true
 
+  calibre:
+    image: linuxserver/calibre
+    container_name: calibre
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+      - GUAC_USER=${CALIBRE_USERNAME}
+      - GUAC_PASS=${CALIBRE_PASSWORD}
+    volumes:
+      - ${CALIBRE}:/config
+    ports:
+      - 9080:8080
+      - 9081:8081
+    restart: unless-stopped
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
 networks:
   default:
     ipam:
