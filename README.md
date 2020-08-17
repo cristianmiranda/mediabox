@@ -4,43 +4,16 @@
 
 ![](https://i.imgur.com/NHvoGC1.jpg)
 
-## Docker stack
-![](https://i.imgur.com/ni19vKz.png)
-
-## HDD structure
-All directories are created upon start, automatically (if don't exist).
-```bash
-$ tree $HDD_PATH -d -L 2
-
-2tb
-├── bazarr
-│   └── config
-├── deluge
-│   ├── config
-│   └── downloads
-├── jackett
-│   └── config
-├── media
-│   ├── movies
-│   ├── pictures
-│   └── tv
-├── muximux
-│   ├── keys
-│   ├── log
-│   ├── muximux
-│   ├── nginx
-│   ├── php
-│   └── www
-├── plex
-│   └── config
-├── radarr
-│   └── config
-├── repo
-└── sonarr
-    └── config
-
-25 directories
-```
+## Supported apps
+* Plex
+* Sonarr
+* Radarr
+* Bazarr
+* Jackett
+* Deluge
+* Calibre
+* Portainer
+* Watchtower
 
 ## Setup
 * Replace all paths in `.env` with whatever makes sense for you (follow the comments above each property).
