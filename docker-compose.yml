@@ -126,7 +126,7 @@ services:
     volumes:
       - ${MUXIMUX}:/config
     ports:
-      - ${MUXIMUX_PORT}:80
+      - 80:80
     networks:
       default:
         ipv4_address: 172.20.0.7
