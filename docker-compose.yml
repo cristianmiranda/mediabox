@@ -1,139 +1,6 @@
 version: "3.3"
 
 services:
-  plex:
-    image: linuxserver/plex
-    container_name: plex
-    network_mode: host
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - VERSION=docker
-    volumes:
-      - ${PLEX}/config:/config
-      - ${TV_SHOWS}:/tv
-      - ${MOVIES}:/movies
-      - ${PICTURES}:/pictures
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-    restart: unless-stopped
-
-  sonarr:
-    image: linuxserver/sonarr
-    container_name: sonarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TIMEZONE}
-    volumes:
-      - ${SONARR}/config:/config
-      - ${TV_SHOWS}:/tv
-      - ${TORRENT_DOWNLOADS}:/downloads
-    ports:
-      - 8989:8989
-    networks:
-      default:
-        ipv4_address: 172.20.0.2
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-    restart: unless-stopped
-
-  deluge:
-    image: linuxserver/deluge
-    container_name: deluge
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TIMEZONE}
-    volumes:
-      - ${DELUGE}/config:/config
-      - ${TORRENT_DOWNLOADS}:/downloads
-    ports:
-      - 8112:8112
-    networks:
-      default:
-        ipv4_address: 172.20.0.3
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-    restart: unless-stopped
-
-  jackett:
-    image: linuxserver/jackett
-    container_name: jackett
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TIMEZONE}
-      - AUTO_UPDATE=true
-    volumes:
-      - ${JACKETT}/config:/config
-    ports:
-      - 9117:9117
-    networks:
-      default:
-        ipv4_address: 172.20.0.4
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-    restart: unless-stopped
-
-  bazarr:
-    image: linuxserver/bazarr
-    container_name: bazarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TIMEZONE}
-    volumes:
-      - ${BAZARR}/config:/config
-      - ${MOVIES}:/movies
-      - ${TV_SHOWS}:/tv
-    ports:
-      - 6767:6767
-    networks:
-      default:
-        ipv4_address: 172.20.0.5
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-    restart: unless-stopped
-
-  radarr:
-    image: linuxserver/radarr
-    container_name: radarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TIMEZONE}
-    volumes:
-      - ${RADARR}/config:/config
-      - ${MOVIES}:/movies
-      - ${TORRENT_DOWNLOADS}:/downloads
-    ports:
-      - 7878:7878
-    networks:
-      default:
-        ipv4_address: 172.20.0.6
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-    restart: unless-stopped
-
-  muximux:
-    image: linuxserver/muximux
-    container_name: muximux
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TIMEZONE}
-    volumes:
-      - ${MUXIMUX}:/config
-    ports:
-      - 80:80
-    networks:
-      default:
-        ipv4_address: 172.20.0.7
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-    restart: unless-stopped
-
   watchtower:
     image: v2tec/watchtower
     container_name: watchtower
@@ -143,24 +10,203 @@ services:
       - ${HOME}/.docker/config.json:/config.json
     command: --label-enable --cleanup --schedule "0 4 * * *"
 
-  portainer:
-    image: portainer/portainer
-    container_name: portainer
-    network_mode: host
-    command: -H unix:///var/run/docker.sock
+  traefik:
+    image: traefik
     restart: always
+    container_name: traefik
     ports:
-      - 9000:9000
-      - 8000:8000
+      - "80:80" # <== http
+      - "8080:8080" # <== :8080 is where the dashboard runs on
+      - "443:443" # <== https
+    command:
+      - --api.insecure=true # <== Enabling insecure api, NOT RECOMMENDED FOR PRODUCTION
+      - --api.dashboard=false # <== Enabling the dashboard to view services, middlewares, routers, etc.
+      - --api.debug=true # <== Enabling additional endpoints for debugging and profiling
+      - --log.level=DEBUG # <== Setting the level of the logs from traefik
+      - --providers.docker=true # <== Enabling docker as the provider for traefik
+      - --providers.docker.exposedbydefault=false # <== Don't expose every container to traefik
+      #- --providers.file.filename=/dynamic.yaml # <== Referring to a dynamic configuration file
+      - --providers.docker.network=default # <== Operate on the docker network named web
+      - --entrypoints.web.address=:80 # <== Defining an entrypoint for port :80 named web
+      #- --entrypoints.websecured.address=:443 # <== Defining an entrypoint for https on port :443 (not really needed)
+      #- --certificatesresolvers.mytlschallenge.acme.tlschallenge=true # <== Enable TLS-ALPN-01 (not really needed)
+      #- --certificatesresolvers.mytlschallenge.acme.email=you@youremail # <== Set your email (not really needed)
+      #- --certificatesresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json # <== SSL stuff we don't need.
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ${PORTAINER}:/data
+      #- ./letsencrypt:/letsencrypt # <== Volume for certs (TLS) (not really needed)
+      - /var/run/docker.sock:/var/run/docker.sock # <== Volume for docker admin
+      - ./dynamic.yaml:/dynamic.yaml # <== Volume for dynamic conf file, **ref: line 27
+    networks:
+      default:
+        ipv4_address: 172.20.50.1 # <== Placing traefik on the network named web, to access containers on this network
+    labels:
+      - "traefik.enable=true" # <== Enable traefik on itself to view dashboard and assign subdomain to$
+      - "traefik.http.routers.api.rule=Host(`traefik.${DOMAIN}`)" # <== Setting the domain for the d$
+      - "traefik.http.routers.api.service=api@internal" # <== Enabling the api to be a service to acce$
+
+  plex:
+    image: linuxserver/plex
+    container_name: plex
+    networks:
+      default:
+        ipv4_address: 172.20.1.1
+    ports:
+      - 32400:32400/tcp
+      - 32400:32400/udp
+      - 3005:3005/tcp
+      - 8324:8324/tcp
+      - 32469:32469/tcp
+      - 1900:1900/udp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
     labels:
       - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.plex.rule=Host(`plex.${DOMAIN}`)
+      - traefik.http.routers.plex.entrypoints=web
+      - traefik.http.services.plex.loadbalancer.server.port=32400
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+      - ADVERTISE_IP="https://plex.${DOMAIN}:443"
+    volumes:
+      - ${PLEX}/config:/config
+      - ${TV_SHOWS}:/tv
+      - ${MOVIES}:/movies
+      - ${PICTURES}:/pictures
+    restart: unless-stopped
+
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    networks:
+      default:
+        ipv4_address: 172.20.1.2
+    ports:
+      - 8989:8989
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.sonarr.rule=Host(`sonarr.${DOMAIN}`)
+      - traefik.http.routers.sonarr.entrypoints=web
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+    volumes:
+      - ${SONARR}/config:/config
+      - ${TV_SHOWS}:/tv
+      - ${TORRENT_DOWNLOADS}:/downloads
+    restart: unless-stopped
+
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    networks:
+      default:
+        ipv4_address: 172.20.1.3
+    ports:
+      - 7878:7878
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.radarr.rule=Host(`radarr.${DOMAIN}`)
+      - traefik.http.routers.radarr.entrypoints=web
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+    volumes:
+      - ${RADARR}/config:/config
+      - ${MOVIES}:/movies
+      - ${TORRENT_DOWNLOADS}:/downloads
+    restart: unless-stopped
+
+  bazarr:
+    image: linuxserver/bazarr
+    container_name: bazarr
+    networks:
+      default:
+        ipv4_address: 172.20.1.4
+    ports:
+      - 6767:6767
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.bazarr.rule=Host(`bazarr.${DOMAIN}`)
+      - traefik.http.routers.bazarr.entrypoints=web
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+    volumes:
+      - ${BAZARR}/config:/config
+      - ${MOVIES}:/movies
+      - ${TV_SHOWS}:/tv
+    restart: unless-stopped
+
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    networks:
+      default:
+        ipv4_address: 172.20.1.5
+    ports:
+      - 9117:9117
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.jackett.rule=Host(`jackett.${DOMAIN}`)
+      - traefik.http.routers.jackett.entrypoints=web
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+      - AUTO_UPDATE=true
+    volumes:
+      - ${JACKETT}/config:/config
+    restart: unless-stopped
+
+  deluge:
+    image: linuxserver/deluge
+    container_name: deluge
+    networks:
+      default:
+        ipv4_address: 172.20.1.6
+    ports:
+      - 8112:8112
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.deluge.rule=Host(`deluge.${DOMAIN}`)
+      - traefik.http.routers.deluge.entrypoints=web
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+    volumes:
+      - ${DELUGE}/config:/config
+      - ${TORRENT_DOWNLOADS}:/downloads
+    restart: unless-stopped
 
   calibre:
     image: linuxserver/calibre
     container_name: calibre
+    networks:
+      default:
+        ipv4_address: 172.20.2.1
+    ports:
+      - 9080:8080
+      - 9081:8081
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.calibre.rule=Host(`calibre.${DOMAIN}`)
+      - traefik.http.routers.calibre.entrypoints=web
+      - traefik.http.services.calibre.loadbalancer.server.port=8080
     environment:
       - PUID=1000
       - PGID=1000
@@ -169,15 +215,28 @@ services:
       - GUAC_PASS=${CALIBRE_PASSWORD}
     volumes:
       - ${CALIBRE}:/config
-    ports:
-      - 9080:8080
-      - 9081:8081
     restart: unless-stopped
+
+  portainer:
+    image: portainer/portainer
+    container_name: portainer
     networks:
       default:
-        ipv4_address: 172.20.0.8
+        ipv4_address: 172.20.2.2
+    ports:
+      - 9000:9000
+      - 8000:8000
     labels:
       - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.portainer.rule=Host(`portainer.${DOMAIN}`)
+      - traefik.http.routers.portainer.entrypoints=web
+      - traefik.http.services.portainer.loadbalancer.server.port=9000
+    restart: always
+    command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${PORTAINER}:/data
 
 networks:
   default:
@@ -185,4 +244,3 @@ networks:
       driver: default
       config:
         - subnet: 172.20.0.0/16
-
