@@ -161,7 +161,6 @@ services:
   calibre:
     image: linuxserver/calibre
     container_name: calibre
-    network_mode: host
     environment:
       - PUID=1000
       - PGID=1000
@@ -174,6 +173,9 @@ services:
       - 9080:8080
       - 9081:8081
     restart: unless-stopped
+    networks:
+      default:
+        ipv4_address: 172.20.0.8
     labels:
       - com.centurylinklabs.watchtower.enable=true
 
