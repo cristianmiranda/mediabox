@@ -3,22 +3,22 @@ version: "3.3"
 services:
   plex:
     volumes:
-      - /data/4WD/media/tv:/wd-4tb-tv
-      - /data/4WD/media/movies:/wd-4tb-movies
+      - /data/extra/media/tv:/wd-4tb-tv
+      - /data/extra/media/movies:/wd-4tb-movies
     devices:
       # Enables Hardware Transcoding if available
       - /dev/dri:/dev/dri
   
   sonarr:
     volumes:
-      - /data/4WD/media/tv:/wd-4tb-tv
+      - /data/extra/media/tv:/wd-4tb-tv
 
   radarr:
     volumes:
-      - /data/4WD/media/movies:/wd-4tb-movies
+      - /data/extra/media/movies:/wd-4tb-movies
 
   bazarr:
     volumes:
-      - /data/4WD/media/tv:/wd-4tb-tv
-      - /data/4WD/media/movies:/wd-4tb-movies
+      - /data/extra/media/tv:/wd-4tb-tv
+      - /data/extra/media/movies:/wd-4tb-movies
 
