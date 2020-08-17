@@ -31,12 +31,7 @@ docker-compose down
 ```
 
 ## Updating
-```bash
-docker-compose down
-docker-compose pull
-docker-compose up -d
-docker image prune
-```
+Watchtower automatically updates all apps (if docker image update is available) at 4 AM every day.
 
 ## Services
 _(Use your own local IP address)_
