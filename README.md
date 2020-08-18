@@ -60,20 +60,9 @@ _(Use your own local IP address)_
 ![](https://i.imgur.com/iymyOIM.png)
 ![](https://i.imgur.com/LCyPZrW.png)
 
-### Transmission
-![](https://imgur.com/Rib2L9E.png)
-
-## Docker images
-* https://hub.docker.com/r/linuxserver/plex
-* https://hub.docker.com/r/linuxserver/sonarr
-* https://hub.docker.com/r/linuxserver/deluge
-* https://hub.docker.com/r/linuxserver/jackett
-* https://hub.docker.com/r/linuxserver/bazarr
-* https://hub.docker.com/r/linuxserver/radarr
-* https://hub.docker.com/r/linuxserver/muximux
-
 ## Docs
 * https://www.tecmint.com/create-new-ext4-file-system-partition-in-linux/
 * https://www.techrepublic.com/article/how-to-properly-automount-a-drive-in-ubuntu-linux/
 * https://support.plex.tv/articles/naming-and-organizing-your-tv-show-files/
 * https://support.plex.tv/articles/202485658-restore-a-database-backed-up-via-scheduled-tasks/
+* https://dev.to/rohansawant/installing-docker-and-docker-compose-on-the-raspberry-pi-in-5-simple-steps-3mgl
