@@ -14,6 +14,7 @@
 * Calibre
 * Portainer
 * Watchtower
+* Organizr
 
 ## Setup
 * Replace all paths in `.env` with whatever makes sense for you (follow the comments above each property).
@@ -36,7 +37,7 @@ Watchtower automatically updates all apps (if docker image update is available) 
 ## Services ports
 _(Use your own local IP address)_
 
-* Muximux: 80
+* Organizr: 9983
 * Plex: 32400
 * Sonarr: 8989
 * Radarr: 7878

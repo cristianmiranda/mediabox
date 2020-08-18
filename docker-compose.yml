@@ -238,6 +238,28 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${PORTAINER}:/data
 
+  organizr:
+    image: linuxserver/organizr
+    container_name: organizr
+    networks:
+      default:
+        ipv4_address: 172.20.2.3
+    ports:
+      - 9983:80
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.orzanizr.rule=Host(`organizr.${DOMAIN}`)
+      - traefik.http.routers.organizr.entrypoints=web
+      - traefik.http.services.organizr.loadbalancer.server.port=80
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+    volumes:
+      - ${ORGANIZR}:/config
+    restart: unless-stopped
+
 networks:
   default:
     ipam:
