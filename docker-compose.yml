@@ -260,6 +260,29 @@ services:
       - ${ORGANIZR}:/config
     restart: unless-stopped
 
+  duplicati:
+    image: linuxserver/duplicati
+    container_name: duplicati
+    networks:
+      default:
+        ipv4_address: 172.20.2.4
+    ports:
+      - 8200:8200
+    labels:
+      - com.centurylinklabs.duplicati.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.duplicati.rule=Host(`duplicati.${DOMAIN}`)
+      - traefik.http.routers.duplicati.entrypoints=web
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+    volumes:
+      - ${DUPLICATI}/config:/config
+      - ${DUPLICATI}/backups:/backups
+      - /:/source
+    restart: unless-stopped
+
 networks:
   default:
     ipam:
