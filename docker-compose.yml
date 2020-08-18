@@ -35,7 +35,7 @@ services:
     volumes:
       #- ./letsencrypt:/letsencrypt # <== Volume for certs (TLS) (not really needed)
       - /var/run/docker.sock:/var/run/docker.sock # <== Volume for docker admin
-      - ./dynamic.yaml:/dynamic.yaml # <== Volume for dynamic conf file, **ref: line 27
+      #- ./dynamic.yaml:/dynamic.yaml # <== Volume for dynamic conf file, **ref: line 27
     networks:
       default:
         ipv4_address: 172.20.50.1 # <== Placing traefik on the network named web, to access containers on this network
