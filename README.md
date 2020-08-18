@@ -2,7 +2,7 @@
 
 ![](https://github.com/cristianmiranda/mediabox/workflows/Multimedia%20Stack%20Deployment/badge.svg)
 
-![](https://i.imgur.com/NHvoGC1.jpg)
+![](https://i.imgur.com/p8AHjpF.jpg)
 
 ## Supported apps
 * Plex
