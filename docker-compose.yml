@@ -68,8 +68,8 @@ services:
       - traefik.http.routers.plex.entrypoints=web
       - traefik.http.services.plex.loadbalancer.server.port=32400
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - VERSION=docker
       - ADVERTISE_IP="https://plex.${DOMAIN}:443"
     volumes:
@@ -93,8 +93,8 @@ services:
       - traefik.http.routers.sonarr.rule=Host(`sonarr.${DOMAIN}`)
       - traefik.http.routers.sonarr.entrypoints=web
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TIMEZONE}
     volumes:
       - ${SONARR}/config:/config
@@ -116,8 +116,8 @@ services:
       - traefik.http.routers.radarr.rule=Host(`radarr.${DOMAIN}`)
       - traefik.http.routers.radarr.entrypoints=web
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TIMEZONE}
     volumes:
       - ${RADARR}/config:/config
@@ -139,8 +139,8 @@ services:
       - traefik.http.routers.bazarr.rule=Host(`bazarr.${DOMAIN}`)
       - traefik.http.routers.bazarr.entrypoints=web
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TIMEZONE}
     volumes:
       - ${BAZARR}/config:/config
@@ -162,8 +162,8 @@ services:
       - traefik.http.routers.jackett.rule=Host(`jackett.${DOMAIN}`)
       - traefik.http.routers.jackett.entrypoints=web
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TIMEZONE}
       - AUTO_UPDATE=true
     volumes:
@@ -184,8 +184,8 @@ services:
       - traefik.http.routers.deluge.rule=Host(`deluge.${DOMAIN}`)
       - traefik.http.routers.deluge.entrypoints=web
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TIMEZONE}
     volumes:
       - ${DELUGE}/config:/config
@@ -208,8 +208,8 @@ services:
       - traefik.http.routers.calibre.entrypoints=web
       - traefik.http.services.calibre.loadbalancer.server.port=8080
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TIMEZONE}
       - GUAC_USER=${CALIBRE_USERNAME}
       - GUAC_PASS=${CALIBRE_PASSWORD}
@@ -253,8 +253,8 @@ services:
       - traefik.http.routers.organizr.entrypoints=web
       - traefik.http.services.organizr.loadbalancer.server.port=80
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TIMEZONE}
     volumes:
       - ${ORGANIZR}:/config
