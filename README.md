@@ -15,6 +15,7 @@
 * Portainer
 * Watchtower
 * Organizr
+* Duplicati
 
 ## Setup
 * Replace all paths in `.env` with whatever makes sense for you (follow the comments above each property).
