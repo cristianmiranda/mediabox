@@ -34,18 +34,8 @@ docker-compose down
 ## Updating
 Watchtower automatically updates all apps (if docker image update is available) at 4 AM every day.
 
-## Services ports
-_(Use your own local IP address)_
-
-* Organizr: 9983
-* Plex: 32400
-* Sonarr: 8989
-* Radarr: 7878
-* Bazarr: 6767
-* Deluge: 8112
-* Jackett: 9117
-* Portainer: 9000
-* Calibre: 9080
+## Architecture
+![](https://imgur.com/nsEsoKw.png)
 
 ## Configuration
 ### Plex
