@@ -37,4 +37,6 @@ docker-compose down
 Watchtower automatically updates all apps (if docker image update is available) at 4 AM every day.
 
 ## Architecture
-![](https://imgur.com/nsEsoKw.png)
+<p align="center">
+  <img src="https://imgur.com/nsEsoKw.png" />
+</p>
