@@ -11,6 +11,7 @@
 * [Bazarr](https://www.bazarr.media/)
 * [Jackett](https://github.com/Jackett/Jackett)
 * [NZBHydra2](https://github.com/theotherp/nzbhydra2)
+* [SABnzbd](https://sabnzbd.org/)
 * [Deluge](https://deluge-torrent.org/)
 * [Calibre](https://calibre-ebook.com/)
 * [Portainer](https://www.portainer.io/)

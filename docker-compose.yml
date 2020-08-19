@@ -192,12 +192,37 @@ services:
       - ${TORRENT_DOWNLOADS}:/downloads
     restart: unless-stopped
 
+  sabnzbd:
+    image: linuxserver/sabnzbd
+    container_name: sabnzbd
+    networks:
+      default:
+        ipv4_address: 172.20.1.7
+    ports:
+      - 9050:8080
+      - 9051:9090
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.sabnzbd.rule=Host(`sabnzbd.${DOMAIN}`)
+      - traefik.http.routers.sabnzbd.entrypoints=web
+      - traefik.http.services.sabnzbd.loadbalancer.server.port=8080
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+    volumes:
+      - ${SABNZBD}/config:/config
+      - ${USENET_DOWNLOADS}/complete:/downloads
+      - ${USENET_DOWNLOADS}/incomplete:/incomplete-downloads
+    restart: unless-stopped
+
   nzbhydra2:
     image: linuxserver/nzbhydra2
     container_name: nzbhydra2
     networks:
       default:
-        ipv4_address: 172.20.1.7
+        ipv4_address: 172.20.1.8
     ports:
       - 5076:5076
     labels:
