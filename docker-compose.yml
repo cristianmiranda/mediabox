@@ -238,12 +238,28 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${PORTAINER}:/data
 
+  portainer_agent:
+    image: portainer/agent
+    container_name: portainer-agent
+    networks:
+      default:
+        ipv4_address: 172.20.2.3
+    ports:
+      - 9001:9001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+    restart: always
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=false
+
   organizr:
     image: organizrtools/organizr-v2
     container_name: organizr
     networks:
       default:
-        ipv4_address: 172.20.2.3
+        ipv4_address: 172.20.2.4
     ports:
       - 9983:80
     labels:
@@ -265,7 +281,7 @@ services:
     container_name: duplicati
     networks:
       default:
-        ipv4_address: 172.20.2.4
+        ipv4_address: 172.20.2.5
     ports:
       - 8200:8200
     labels:
