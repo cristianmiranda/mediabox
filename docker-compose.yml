@@ -170,12 +170,34 @@ services:
       - ${JACKETT}/config:/config
     restart: unless-stopped
 
+  nzbhydra2:
+    image: linuxserver/nzbhydra2
+    container_name: nzbhydra2
+    networks:
+      default:
+        ipv4_address: 172.20.1.6
+    ports:
+      - 5076:5076
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.nzbhydra.rule=Host(`nzbhydra.${DOMAIN}`)
+      - traefik.http.routers.nzbhydra.entrypoints=web
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+    volumes:
+      - ${NZBHYDRA2}/config:/config
+      - ${NZBHYDRA2}/downloads:/downloads
+    restart: unless-stopped
+
   deluge:
     image: linuxserver/deluge
     container_name: deluge
     networks:
       default:
-        ipv4_address: 172.20.1.6
+        ipv4_address: 172.20.1.7
     ports:
       - 8112:8112
     labels:
@@ -197,7 +219,7 @@ services:
     container_name: sabnzbd
     networks:
       default:
-        ipv4_address: 172.20.1.7
+        ipv4_address: 172.20.1.8
     ports:
       - 9050:8080
       - 9051:9090
@@ -215,28 +237,6 @@ services:
       - ${SABNZBD}/config:/config
       - ${USENET_DOWNLOADS}/complete:/downloads
       - ${USENET_DOWNLOADS}/incomplete:/incomplete-downloads
-    restart: unless-stopped
-
-  nzbhydra2:
-    image: linuxserver/nzbhydra2
-    container_name: nzbhydra2
-    networks:
-      default:
-        ipv4_address: 172.20.1.8
-    ports:
-      - 5076:5076
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-      - traefik.enable=true
-      - traefik.http.routers.nzbhydra.rule=Host(`nzbhydra.${DOMAIN}`)
-      - traefik.http.routers.nzbhydra.entrypoints=web
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TIMEZONE}
-    volumes:
-      - ${NZBHYDRA2}/config:/config
-      - ${NZBHYDRA2}/downloads:/downloads
     restart: unless-stopped
 
   calibre:
