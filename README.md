@@ -4,18 +4,19 @@
 
 ![](https://i.imgur.com/p8AHjpF.jpg)
 
-## Supported apps
-* Plex
-* Sonarr
-* Radarr
-* Bazarr
-* Jackett
-* Deluge
-* Calibre
-* Portainer
-* Watchtower
-* Organizr
-* Duplicati
+## What's in the stack?
+* [Plex](https://www.plex.tv/)
+* [Sonarr](https://sonarr.tv/)
+* [Radarr](https://radarr.video/)
+* [Bazarr](https://www.bazarr.media/)
+* [Jackett](https://github.com/Jackett/Jackett)
+* [NZBHydra2](https://github.com/theotherp/nzbhydra2)
+* [Deluge](https://deluge-torrent.org/)
+* [Calibre](https://calibre-ebook.com/)
+* [Portainer](https://www.portainer.io/)
+* [Watchtower](https://github.com/containrrr/watchtower)
+* [Organizr](https://github.com/causefx/Organizr)
+* [Duplicati](https://www.duplicati.com/)
 
 ## Setup
 * Replace all paths in `.env` with whatever makes sense for you (follow the comments above each property).
@@ -37,23 +38,3 @@ Watchtower automatically updates all apps (if docker image update is available) 
 
 ## Architecture
 ![](https://imgur.com/nsEsoKw.png)
-
-## Configuration
-### Plex
-![](https://imgur.com/tTZM8Xr.png)
-![](https://imgur.com/24rtdJv.png)
-
-### Sonarr / Radarr
-![](https://imgur.com/DpIkOwh.png)
-![](https://imgur.com/3Urh1mb.png)
-
-### Deluge
-![](https://i.imgur.com/iymyOIM.png)
-![](https://i.imgur.com/LCyPZrW.png)
-
-## Docs
-* https://www.tecmint.com/create-new-ext4-file-system-partition-in-linux/
-* https://www.techrepublic.com/article/how-to-properly-automount-a-drive-in-ubuntu-linux/
-* https://support.plex.tv/articles/naming-and-organizing-your-tv-show-files/
-* https://support.plex.tv/articles/202485658-restore-a-database-backed-up-via-scheduled-tasks/
-* https://dev.to/rohansawant/installing-docker-and-docker-compose-on-the-raspberry-pi-in-5-simple-steps-3mgl
