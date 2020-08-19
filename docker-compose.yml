@@ -192,6 +192,28 @@ services:
       - ${TORRENT_DOWNLOADS}:/downloads
     restart: unless-stopped
 
+  nzbhydra2:
+    image: linuxserver/nzbhydra2
+    container_name: nzbhydra2
+    networks:
+      default:
+        ipv4_address: 172.20.1.7
+    ports:
+      - 5076:5076
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.nzbhydra.rule=Host(`nzbhydra.${DOMAIN}`)
+      - traefik.http.routers.nzbhydra.entrypoints=web
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+    volumes:
+      - ${NZBHYDRA2}/config:/config
+      - ${NZBHYDRA2}/downloads:/downloads
+    restart: unless-stopped
+
   calibre:
     image: linuxserver/calibre
     container_name: calibre
