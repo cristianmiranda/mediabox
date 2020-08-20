@@ -15,34 +15,35 @@ services:
     restart: always
     container_name: traefik
     ports:
-      - "80:80" # <== http
-      - "8080:8080" # <== :8080 is where the dashboard runs on
-      - "443:443" # <== https
+      - "80:80"
+      - "443:443"
+      - "8080:8080" # traefik dashboard
     command:
-      - --api.insecure=true # <== Enabling insecure api, NOT RECOMMENDED FOR PRODUCTION
-      - --api.dashboard=false # <== Enabling the dashboard to view services, middlewares, routers, etc.
-      - --api.debug=true # <== Enabling additional endpoints for debugging and profiling
-      - --log.level=DEBUG # <== Setting the level of the logs from traefik
-      - --providers.docker=true # <== Enabling docker as the provider for traefik
-      - --providers.docker.exposedbydefault=false # <== Don't expose every container to traefik
-      #- --providers.file.filename=/dynamic.yaml # <== Referring to a dynamic configuration file
-      - --providers.docker.network=default # <== Operate on the docker network named web
-      - --entrypoints.web.address=:80 # <== Defining an entrypoint for port :80 named web
-      #- --entrypoints.websecured.address=:443 # <== Defining an entrypoint for https on port :443 (not really needed)
-      #- --certificatesresolvers.mytlschallenge.acme.tlschallenge=true # <== Enable TLS-ALPN-01 (not really needed)
-      #- --certificatesresolvers.mytlschallenge.acme.email=you@youremail # <== Set your email (not really needed)
-      #- --certificatesresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json # <== SSL stuff we don't need.
+      - --api.insecure=true
+      - --api.dashboard=false
+      - --api.debug=true
+      - --log.level=DEBUG
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=default
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecured.address=:443
+      - --entrypoints.web.http.redirections.entryPoint.to=websecured
+      - --entrypoints.web.http.redirections.entryPoint.scheme=https
+      - --entrypoints.web.http.redirections.entrypoint.permanent=true
+      - --certificatesresolvers.myresolver.acme.tlschallenge=true
+      - --certificatesresolvers.myresolver.acme.email=${SSL_ACME_EMAIL}
+      - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
     volumes:
-      #- ./letsencrypt:/letsencrypt # <== Volume for certs (TLS) (not really needed)
-      - /var/run/docker.sock:/var/run/docker.sock # <== Volume for docker admin
-      #- ./dynamic.yaml:/dynamic.yaml # <== Volume for dynamic conf file, **ref: line 27
+      - ${LETSENCRYPT}:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       default:
-        ipv4_address: 172.20.50.1 # <== Placing traefik on the network named web, to access containers on this network
+        ipv4_address: 172.20.50.1
     labels:
-      - "traefik.enable=true" # <== Enable traefik on itself to view dashboard and assign subdomain to$
-      - "traefik.http.routers.api.rule=Host(`traefik.${DOMAIN}`)" # <== Setting the domain for the d$
-      - "traefik.http.routers.api.service=api@internal" # <== Enabling the api to be a service to acce$
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.rule=Host(`traefik.${DOMAIN}`)"
+      - "traefik.http.routers.api.service=api@internal"
 
   plex:
     image: linuxserver/plex
@@ -65,8 +66,9 @@ services:
       - com.centurylinklabs.watchtower.enable=true
       - traefik.enable=true
       - traefik.http.routers.plex.rule=Host(`plex.${DOMAIN}`)
-      - traefik.http.routers.plex.entrypoints=web
+      - traefik.http.routers.plex.entrypoints=websecured
       - traefik.http.services.plex.loadbalancer.server.port=32400
+      - traefik.http.routers.plex.tls.certresolver=myresolver
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -91,7 +93,8 @@ services:
       - com.centurylinklabs.watchtower.enable=true
       - traefik.enable=true
       - traefik.http.routers.sonarr.rule=Host(`sonarr.${DOMAIN}`)
-      - traefik.http.routers.sonarr.entrypoints=web
+      - traefik.http.routers.sonarr.entrypoints=websecured
+      - traefik.http.routers.sonarr.tls.certresolver=myresolver
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -114,7 +117,8 @@ services:
       - com.centurylinklabs.watchtower.enable=true
       - traefik.enable=true
       - traefik.http.routers.radarr.rule=Host(`radarr.${DOMAIN}`)
-      - traefik.http.routers.radarr.entrypoints=web
+      - traefik.http.routers.radarr.entrypoints=websecured
+      - traefik.http.routers.radarr.tls.certresolver=myresolver
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -137,7 +141,8 @@ services:
       - com.centurylinklabs.watchtower.enable=true
       - traefik.enable=true
       - traefik.http.routers.bazarr.rule=Host(`bazarr.${DOMAIN}`)
-      - traefik.http.routers.bazarr.entrypoints=web
+      - traefik.http.routers.bazarr.entrypoints=websecured
+      - traefik.http.routers.bazarr.tls.certresolver=myresolver
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -160,7 +165,8 @@ services:
       - com.centurylinklabs.watchtower.enable=true
       - traefik.enable=true
       - traefik.http.routers.jackett.rule=Host(`jackett.${DOMAIN}`)
-      - traefik.http.routers.jackett.entrypoints=web
+      - traefik.http.routers.jackett.entrypoints=websecured
+      - traefik.http.routers.jackett.tls.certresolver=myresolver
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -182,7 +188,8 @@ services:
       - com.centurylinklabs.watchtower.enable=true
       - traefik.enable=true
       - traefik.http.routers.nzbhydra.rule=Host(`nzbhydra.${DOMAIN}`)
-      - traefik.http.routers.nzbhydra.entrypoints=web
+      - traefik.http.routers.nzbhydra.entrypoints=websecured
+      - traefik.http.routers.nzbhydra.tls.certresolver=myresolver
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -204,7 +211,8 @@ services:
       - com.centurylinklabs.watchtower.enable=true
       - traefik.enable=true
       - traefik.http.routers.deluge.rule=Host(`deluge.${DOMAIN}`)
-      - traefik.http.routers.deluge.entrypoints=web
+      - traefik.http.routers.deluge.entrypoints=websecured
+      - traefik.http.routers.deluge.tls.certresolver=myresolver
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -227,7 +235,8 @@ services:
       - com.centurylinklabs.watchtower.enable=true
       - traefik.enable=true
       - traefik.http.routers.sabnzbd.rule=Host(`sabnzbd.${DOMAIN}`)
-      - traefik.http.routers.sabnzbd.entrypoints=web
+      - traefik.http.routers.sabnzbd.entrypoints=websecured
+      - traefik.http.routers.sabnzbd.tls.certresolver=myresolver
       - traefik.http.services.sabnzbd.loadbalancer.server.port=8080
     environment:
       - PUID=${PUID}
@@ -252,7 +261,8 @@ services:
       - com.centurylinklabs.watchtower.enable=true
       - traefik.enable=true
       - traefik.http.routers.calibre.rule=Host(`calibre.${DOMAIN}`)
-      - traefik.http.routers.calibre.entrypoints=web
+      - traefik.http.routers.calibre.entrypoints=websecured
+      - traefik.http.routers.calibre.tls.certresolver=myresolver
       - traefik.http.services.calibre.loadbalancer.server.port=8080
     environment:
       - PUID=${PUID}
@@ -277,7 +287,8 @@ services:
       - com.centurylinklabs.watchtower.enable=true
       - traefik.enable=true
       - traefik.http.routers.portainer.rule=Host(`portainer.${DOMAIN}`)
-      - traefik.http.routers.portainer.entrypoints=web
+      - traefik.http.routers.portainer.entrypoints=websecured
+      - traefik.http.routers.portainer.tls.certresolver=myresolver
       - traefik.http.services.portainer.loadbalancer.server.port=9000
     restart: always
     command: -H unix:///var/run/docker.sock
@@ -313,7 +324,8 @@ services:
       - com.centurylinklabs.watchtower.enable=true
       - traefik.enable=true
       - traefik.http.routers.orzanizr.rule=Host(`organizr.${DOMAIN}`)
-      - traefik.http.routers.organizr.entrypoints=web
+      - traefik.http.routers.orzanizr.entrypoints=websecured
+      - traefik.http.routers.orzanizr.tls.certresolver=myresolver
       - traefik.http.services.organizr.loadbalancer.server.port=80
     environment:
       - PUID=${PUID}
@@ -335,7 +347,8 @@ services:
       - com.centurylinklabs.duplicati.enable=true
       - traefik.enable=true
       - traefik.http.routers.duplicati.rule=Host(`duplicati.${DOMAIN}`)
-      - traefik.http.routers.duplicati.entrypoints=web
+      - traefik.http.routers.duplicati.entrypoints=websecured
+      - traefik.http.routers.duplicati.tls.certresolver=myresolver
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
