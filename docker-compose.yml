@@ -104,6 +104,11 @@ services:
       - ${TV_SHOWS}:/tv
       - ${TORRENT_DOWNLOADS}:/downloads
     restart: unless-stopped
+    depends_on:
+      - deluge
+      - sabnzbd
+      - jackett
+      - nzbhydra2
 
   radarr:
     image: linuxserver/radarr
@@ -128,6 +133,11 @@ services:
       - ${MOVIES}:/movies
       - ${TORRENT_DOWNLOADS}:/downloads
     restart: unless-stopped
+    depends_on:
+      - deluge
+      - sabnzbd
+      - jackett
+      - nzbhydra2
 
   bazarr:
     image: linuxserver/bazarr
@@ -152,6 +162,9 @@ services:
       - ${MOVIES}:/movies
       - ${TV_SHOWS}:/tv
     restart: unless-stopped
+    depends_on:
+      - sonarr
+      - radarr
 
   jackett:
     image: linuxserver/jackett
