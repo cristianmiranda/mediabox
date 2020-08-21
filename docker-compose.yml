@@ -323,7 +323,7 @@ services:
     labels:
       - com.centurylinklabs.watchtower.enable=true
       - traefik.enable=true
-      - traefik.http.routers.orzanizr.rule=Host(`organizr.${DOMAIN}`)
+      - traefik.http.routers.orzanizr.rule=Host(`organizr.${DOMAIN}`) || Host(`mediabox.${DOMAIN}`)
       - traefik.http.routers.orzanizr.entrypoints=websecured
       - traefik.http.routers.orzanizr.tls.certresolver=myresolver
       - traefik.http.services.organizr.loadbalancer.server.port=80
