@@ -33,9 +33,9 @@ services:
       - --entrypoints.web.http.redirections.entrypoint.permanent=true
       - --certificatesresolvers.myresolver.acme.tlschallenge=true
       - --certificatesresolvers.myresolver.acme.email=${SSL_ACME_EMAIL}
-      - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
+      - --certificatesresolvers.myresolver.acme.storage=acme.json
+      - --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
     volumes:
-      - ${LETSENCRYPT}:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       default:
