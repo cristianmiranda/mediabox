@@ -41,24 +41,3 @@ Watchtower automatically updates all apps (if docker image update is available) 
 <p align="center">
   <img src="https://imgur.com/nsEsoKw.png" />
 </p>
-
-## Let's Encrypt
-As per [certbot instructions](https://certbot.eff.org/instructions), before issuing a new certificate you must stop the web server running on your machine: `docker-compose down` will do it.
-
-### Get a new certificate
-```bash
-# Install snapd
-sudo apt install snapd
-
-# Install certbot
-sudo snap install --classic certbot
-
-# Run certbot
-sudo certbot certonly --standalone
-```
-
-### Renew an existing certificate
-```bash
-# Run certbot
-sudo certbot renew
-```
