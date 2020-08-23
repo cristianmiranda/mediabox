@@ -46,42 +46,6 @@ services:
       - traefik.http.routers.api.rule=Host(`traefik.${DOMAIN}`)
       - traefik.http.routers.api.service=api@internal
 
-  vpn:
-    image: dperson/openvpn-client
-    container_name: vpn
-    cap_add:
-      - net_admin
-    environment:
-      - DNS=${VPN_DNS}
-      - TZ=${TIMEZONE}
-    networks:
-      default:
-        ipv4_address: 172.20.50.2
-    read_only: false
-    tmpfs:
-      - /run
-      - /tmp
-    restart: unless-stopped
-    security_opt:
-      - label:disable
-    stdin_open: true
-    tty: true
-    volumes:
-      - /dev/net:/dev/net:z
-      - ${OPENVPN}:/vpn
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-      - traefik.enable=true
-      #
-      # Exposed containers
-      # See more @ https://community.containo.us/t/docker-compose-with-network-mode-service-service-name/3395
-      #
-      - traefik.http.routers.deluge.entrypoints=websecured
-      - traefik.http.routers.deluge.tls.certresolver=myresolver
-      - traefik.http.routers.deluge.rule=Host(`deluge.${DOMAIN}`)
-    ports:
-      - 8112:8112 # Deluge
-
   plex:
     image: linuxserver/plex
     container_name: plex
@@ -127,7 +91,6 @@ services:
     ports:
       - 8989:8989
     depends_on:
-      - deluge
       - sabnzbd
       - jackett
       - nzbhydra2
@@ -156,7 +119,6 @@ services:
     ports:
       - 7878:7878
     depends_on:
-      - deluge
       - sabnzbd
       - jackett
       - nzbhydra2
@@ -247,27 +209,6 @@ services:
     volumes:
       - ${NZBHYDRA2}/config:/config
       - ${NZBHYDRA2}/downloads:/downloads
-    restart: unless-stopped
-
-  deluge:
-    image: linuxserver/deluge
-    container_name: deluge
-    network_mode: service:vpn
-    depends_on:
-      - vpn
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-      - traefik.enable=true
-      - traefik.http.routers.deluge.rule=Host(`deluge.${DOMAIN}`)
-      - traefik.http.routers.deluge.entrypoints=websecured
-      - traefik.http.routers.deluge.tls.certresolver=myresolver
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TIMEZONE}
-    volumes:
-      - ${DELUGE}/config:/config
-      - ${TORRENT_DOWNLOADS}:/downloads
     restart: unless-stopped
 
   sabnzbd:

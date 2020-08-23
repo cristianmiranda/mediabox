@@ -28,18 +28,25 @@
 
 ## Setup
 * Replace all paths in `.env` with whatever makes sense for you (follow the comments above each property).
-* Use `docker-compose.override.yml` for adding additional media libraries.
 * It might be a good idea to clone this repo inside the external disk if you plan to use it on different machines/architectures.
 
 ## Starting
 ```bash
-docker-compose up -d
+# Main stack + Unprotected Torrenting
+docker-compose -f docker-compose.yml -f docker-compose.torrents.yml up -d
+
+# Main stack + VPN Protected Torrenting
+docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml up -d
+
+# Main stack + VPN Protected Torrenting + Extra disk volumes
+docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml -f docker-compose.volumes.yml up -d
+
+# Main stack + VPN Protected Torrenting + Extra disk volumes + Plex HW Transcoding
+docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml -f docker-compose.volumes.yml -f docker-compose.plex-hw.yml up -d
 ```
 
 ## Stopping
-```bash
-docker-compose down
-```
+Use `docker-compose down` adding `-f` flag with the same compose files you used for starting the stack.
 
 ## Updating
 Watchtower automatically updates all apps (if docker image update is available) at 4 AM every day.
