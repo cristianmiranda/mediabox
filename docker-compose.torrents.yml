@@ -1,0 +1,23 @@
+version: "3.3"
+
+services:
+  deluge:
+    image: linuxserver/deluge
+    container_name: deluge
+    networks:
+      default:
+        ipv4_address: 172.20.1.7
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.deluge.rule=Host(`deluge.${DOMAIN}`)
+      - traefik.http.routers.deluge.entrypoints=websecured
+      - traefik.http.routers.deluge.tls.certresolver=myresolver
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+    volumes:
+      - ${DELUGE}/config:/config
+      - ${TORRENT_DOWNLOADS}:/downloads
+    restart: unless-stopped

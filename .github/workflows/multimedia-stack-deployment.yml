@@ -20,7 +20,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run tests
-        run: |
-          docker-compose -f docker-compose.yml up -d
-
+      - name: Main Stack Deployment + VPN Protected Torrenting
+        run: docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml up -d
