@@ -37,7 +37,7 @@ services:
       - --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${TRAEFIK}:/etc/traefik/acme
+      - ${CONTAINERS}/traefik:/etc/traefik/acme
     networks:
       default:
         ipv4_address: 172.20.50.1
@@ -76,10 +76,8 @@ services:
       - VERSION=docker
       - ADVERTISE_IP="https://plex.${DOMAIN}:443"
     volumes:
-      - ${PLEX}/config:/config
-      - ${TV_SHOWS}:/tv
-      - ${MOVIES}:/movies
-      - ${PICTURES}:/pictures
+      - ${CONTAINERS}/plex/config:/config
+      - ${DATA}:/data
     restart: unless-stopped
 
   sonarr:
@@ -105,9 +103,9 @@ services:
       - PGID=${PGID}
       - TZ=${TIMEZONE}
     volumes:
-      - ${SONARR}/config:/config
-      - ${TV_SHOWS}:/tv
-      - ${TORRENT_DOWNLOADS}:/downloads
+      - ${CONTAINERS}/sonarr/config:/config
+      - ${CONTAINERS}/sonarr/empty:/downloads # Not used
+      - ${DATA}:/data
     restart: unless-stopped
 
   radarr:
@@ -133,9 +131,9 @@ services:
       - PGID=${PGID}
       - TZ=${TIMEZONE}
     volumes:
-      - ${RADARR}/config:/config
-      - ${MOVIES}:/movies
-      - ${TORRENT_DOWNLOADS}:/downloads
+      - ${CONTAINERS}/radarr/config:/config
+      - ${CONTAINERS}/radarr/empty:/downloads # Not used
+      - ${DATA}:/data
     restart: unless-stopped
 
   bazarr:
@@ -160,9 +158,8 @@ services:
       - PGID=${PGID}
       - TZ=${TIMEZONE}
     volumes:
-      - ${BAZARR}/config:/config
-      - ${MOVIES}:/movies
-      - ${TV_SHOWS}:/tv
+      - ${CONTAINERS}/bazarr/config:/config
+      - ${DATA}:/data
     restart: unless-stopped
 
   jackett:
@@ -185,7 +182,7 @@ services:
       - TZ=${TIMEZONE}
       - AUTO_UPDATE=true
     volumes:
-      - ${JACKETT}/config:/config
+      - ${CONTAINERS}/jackett/config:/config
     restart: unless-stopped
 
   nzbhydra2:
@@ -207,8 +204,8 @@ services:
       - PGID=${PGID}
       - TZ=${TIMEZONE}
     volumes:
-      - ${NZBHYDRA2}/config:/config
-      - ${NZBHYDRA2}/downloads:/downloads
+      - ${CONTAINERS}/nzbhydra2/config:/config
+      - ${DOWNLOADS}/nzbhydra2:/downloads
     restart: unless-stopped
 
   sabnzbd:
@@ -232,9 +229,8 @@ services:
       - PGID=${PGID}
       - TZ=${TIMEZONE}
     volumes:
-      - ${SABNZBD}/config:/config
-      - ${USENET_DOWNLOADS}/complete:/downloads
-      - ${USENET_DOWNLOADS}/incomplete:/incomplete-downloads
+      - ${CONTAINERS}/sabnzbd/config:/config
+      - ${DOWNLOADS}/usenet:/downloads
     restart: unless-stopped
 
   calibre:
@@ -260,7 +256,7 @@ services:
       - GUAC_USER=${CALIBRE_USERNAME}
       - GUAC_PASS=${CALIBRE_PASSWORD}
     volumes:
-      - ${CALIBRE}:/config
+      - ${CONTAINERS}/calibre:/config
     restart: unless-stopped
 
   portainer:
@@ -283,7 +279,7 @@ services:
     command: -H unix:///var/run/docker.sock
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${PORTAINER}:/data
+      - ${CONTAINERS}/portainer:/data
 
   portainer_agent:
     image: portainer/agent
@@ -321,7 +317,7 @@ services:
       - PGID=${PGID}
       - TZ=${TIMEZONE}
     volumes:
-      - ${ORGANIZR}:/config
+      - ${CONTAINERS}/organizr:/config
     restart: unless-stopped
 
   duplicati:
@@ -343,8 +339,8 @@ services:
       - PGID=${PGID}
       - TZ=${TIMEZONE}
     volumes:
-      - ${DUPLICATI}/config:/config
-      - ${DUPLICATI}/backups:/backups
+      - ${CONTAINERS}/duplicati/config:/config
+      - ${CONTAINERS}/duplicati/backups:/backups
       - /:/source
     restart: unless-stopped
 
