@@ -298,7 +298,7 @@ services:
       - traefik.enable=false
 
   organizr:
-    image: organizrtools/organizr-v2
+    image: organizrtools/organizr-v2:${ORGANIZR_TAG}
     container_name: organizr
     networks:
       default:
