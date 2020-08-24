@@ -38,11 +38,8 @@ docker-compose -f docker-compose.yml -f docker-compose.torrents.yml up -d
 # Main stack + VPN Protected Torrenting
 docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml up -d
 
-# Main stack + VPN Protected Torrenting + Extra disk volumes
-docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml -f docker-compose.volumes.yml up -d
-
-# Main stack + VPN Protected Torrenting + Extra disk volumes + Plex HW Transcoding
-docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml -f docker-compose.volumes.yml -f docker-compose.plex-hw.yml up -d
+# Main stack + VPN Protected Torrenting + Plex HW Transcoding
+docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml -f docker-compose.plex-hw.yml up -d
 ```
 
 ## Stopping
@@ -69,7 +66,31 @@ YourVPNP4ssw0rD
 EOT
 ```
 
+## Sonarr/Radarr << Deluge/SABnzbd
+This setup follows the best practices mentioned on [this reddit post](https://www.reddit.com/r/usenet/wiki/docker#wiki_the_best_docker_setup), therefore you'll have to map Sonarr/Radarr volumes to Deluge's/SABnzbd's to be able to use hardlinks and/or perform atomic "move" operations instead of "copy+delete" (which takes longer and requires more space).
+
+![](https://i.imgur.com/AHOQVXh.png)
+
 ## Architecture
 <p align="center">
   <img src="https://imgur.com/nsEsoKw.png" />
 </p>
+
+```bash
+# My disks layout:
+#
+# data
+# ├── 2tb
+# │   └── media
+# │       ├── movies
+# │       └── tv
+# ├── 4tb
+# │   └── media
+# │       ├── movies
+# │       └── tv
+# └── ssd
+#     └── mediabox
+#         ├── containers
+#         ├── downloads
+#         └── repo
+```
