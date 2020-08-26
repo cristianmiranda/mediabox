@@ -1,0 +1,38 @@
+version: "3.3"
+
+services:
+  traefik:
+    image: traefik
+    restart: always
+    container_name: traefik
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080 # traefik dashboard
+    command:
+      - --api.insecure=true
+      - --api.dashboard=false
+      - --api.debug=true
+      - --log.level=DEBUG
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=default
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecured.address=:443
+      - --entrypoints.web.http.redirections.entryPoint.to=websecured
+      - --entrypoints.web.http.redirections.entryPoint.scheme=https
+      - --entrypoints.web.http.redirections.entrypoint.permanent=true
+      - --certificatesresolvers.myresolver.acme.tlschallenge=true
+      - --certificatesresolvers.myresolver.acme.email=${SSL_ACME_EMAIL}
+      - --certificatesresolvers.myresolver.acme.storage=etc/traefik/acme/acme.json
+      - --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${CONTAINERS}/traefik:/etc/traefik/acme
+    networks:
+      default:
+        ipv4_address: 172.20.50.1
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.api.rule=Host(`traefik.${DOMAIN}`)
+      - traefik.http.routers.api.service=api@internal

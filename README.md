@@ -40,6 +40,9 @@ docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml up -d
 
 # Main stack + VPN Protected Torrenting + Plex HW Transcoding
 docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml -f docker-compose.plex-hw.yml up -d
+
+# Main stack + VPN Protected Torrenting + Plex HW Transcoding + Custom domain & SSL certificates
+docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml -f docker-compose.plex-hw.yml -f docker-compose.traefik.yml up -d
 ```
 
 ## Stopping
@@ -47,6 +50,17 @@ Use `docker-compose down` adding `-f` flag with the same compose files you used 
 
 ## Updating
 Watchtower automatically updates all apps (if docker image update is available) at 4 AM every day.
+
+## Custom domain + Let's Encrypt free certificates
+In case you own a domain like `example.com` and you'd like to configure subdomains pointing to your apps like `sonarr.example.com` or `plex.example.com`, do the following:
+1. Modify `.env`:
+```bash
+DOMAIN=example.com
+SSL_ACME_EMAIL=you@mail.com
+```
+2. Forward ports 80 and 443 to your mediabox (you can do that changing your router settings).
+3. Include `docker-compose.traefik.yml` when starting the stack
+4. Check the logs to verify everything is up and running: `docker logs -f traefik`
 
 ## VPN
 With OpenVPN you can use any VPN provider following these steps:
