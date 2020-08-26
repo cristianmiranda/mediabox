@@ -26,6 +26,10 @@
 * [Let's Encrypt Automatic SSL certificates](https://letsencrypt.org/)
 * [Duplicati](https://www.duplicati.com/)
 
+## Prerequisites
+* [Docker](https://www.docker.com/)
+* [Docker-Compose](https://docs.docker.com/compose/)
+
 ## Setup
 * Replace all paths in `.env` with whatever makes sense for you (follow the comments above each property).
 * It might be a good idea to clone this repo inside the external disk if you plan to use it on different machines/architectures.
