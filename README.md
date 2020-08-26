@@ -14,7 +14,7 @@
 * [Jackett](https://github.com/Jackett/Jackett)
 * [NZBHydra2](https://github.com/theotherp/nzbhydra2)
 * [SABnzbd](https://sabnzbd.org/)
-* [Deluge](https://deluge-torrent.org/)
+* [Deluge](https://deluge-torrent.org/) (built-in dark mode)
 * [Calibre](https://calibre-ebook.com/)
 * [Portainer](https://www.portainer.io/)
 * [Watchtower](https://github.com/containrrr/watchtower)

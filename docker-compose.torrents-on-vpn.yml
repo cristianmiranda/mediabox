@@ -56,4 +56,5 @@ services:
     volumes:
       - ${CONTAINERS}/deluge/config:/config
       - ${DOWNLOADS}/torrents:/downloads
+      - ./themes/deluge/${DELUGE_THEME}.css:/usr/lib/python3/dist-packages/deluge/ui/web/themes/css/xtheme-gray.css
     restart: unless-stopped
