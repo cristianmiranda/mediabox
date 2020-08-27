@@ -21,4 +21,12 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Main Stack Deployment + VPN Protected Torrenting
+        env:
+          PUID: 1000
+          PGID: 1000
+          DATA: /data
+          CONTAINERS: /data/containers
+          DOWNLOADS: /data/downloads
+          ORGANIZR_TAG: latest
+          DELUGE_THEME: darker
         run: docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml up -d

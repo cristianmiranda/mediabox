@@ -1,4 +1,4 @@
-# Mediabox
+# :tv: Mediabox
 
 ![](https://github.com/cristianmiranda/mediabox/workflows/Multimedia%20Stack%20Deployment/badge.svg)
 
@@ -31,8 +31,12 @@
 * [Docker-Compose](https://docs.docker.com/compose/)
 
 ## Setup
-* Replace all paths in `.env` with whatever makes sense for you (follow the comments above each property).
-* It might be a good idea to clone this repo inside the external disk if you plan to use it on different machines/architectures.
+1. Copy `.env.template`
+```bash
+cp .env.template .env
+```
+2. Replace variables on `.env` with whatever makes sense to you (follow the comments above each property).
+3. It might be a good idea to clone this repo inside the external disk if you plan to use it on different machines/architectures.
 
 ## Starting
 ```bash
