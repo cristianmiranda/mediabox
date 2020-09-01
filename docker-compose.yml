@@ -224,7 +224,7 @@ services:
     restart: unless-stopped
 
   portainer:
-    image: portainer/portainer
+    image: portainer/portainer-ce
     container_name: portainer
     networks:
       default:

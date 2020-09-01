@@ -16,7 +16,7 @@
 * [SABnzbd](https://sabnzbd.org/)
 * [Deluge](https://deluge-torrent.org/) (built-in dark mode)
 * [Calibre](https://calibre-ebook.com/)
-* [Portainer](https://www.portainer.io/)
+* [Portainer 2.0](https://www.portainer.io/)
 * [Watchtower](https://github.com/containrrr/watchtower)
 * [Organizr](https://github.com/causefx/Organizr)
 
