@@ -16,6 +16,7 @@
 * [SABnzbd](https://sabnzbd.org/)
 * [Deluge](https://deluge-torrent.org/) (built-in dark mode)
 * [Calibre](https://calibre-ebook.com/)
+* [Calibre Web](https://github.com/janeczku/calibre-web)
 * [Portainer 2.0](https://www.portainer.io/)
 * [Watchtower](https://github.com/containrrr/watchtower)
 * [Organizr](https://github.com/causefx/Organizr)
@@ -51,6 +52,9 @@ docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml -f do
 
 # Main stack + VPN Protected Torrenting + Plex HW Transcoding + Custom domain & SSL certificates
 docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml -f docker-compose.plex-hw.yml -f docker-compose.traefik.yml up -d
+
+# Main stack + VPN Protected Torrenting + Plex HW Transcoding + Custom domain & SSL certificates + Calibre
+docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml -f docker-compose.plex-hw.yml -f docker-compose.traefik.yml -f docker-compose.books.yml up -d
 ```
 
 ## Stopping

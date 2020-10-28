@@ -197,32 +197,6 @@ services:
       - ${DOWNLOADS}/usenet:/downloads
     restart: unless-stopped
 
-  calibre:
-    image: linuxserver/calibre
-    container_name: calibre
-    networks:
-      default:
-        ipv4_address: 172.20.2.1
-    ports:
-      - 9080:8080
-      - 9081:8081
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-      - traefik.enable=true
-      - traefik.http.routers.calibre.rule=Host(`calibre.${DOMAIN}`)
-      - traefik.http.routers.calibre.entrypoints=websecured
-      - traefik.http.routers.calibre.tls.certresolver=myresolver
-      - traefik.http.services.calibre.loadbalancer.server.port=8080
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TIMEZONE}
-      - GUAC_USER=${CALIBRE_USERNAME}
-      - GUAC_PASS=${CALIBRE_PASSWORD}
-    volumes:
-      - ${CONTAINERS}/calibre:/config
-    restart: unless-stopped
-
   portainer:
     image: portainer/portainer-ce
     container_name: portainer
