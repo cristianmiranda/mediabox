@@ -9,6 +9,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${HOME}/.docker/config.json:/config.json
     command: --label-enable --cleanup --schedule "0 0 4 * * *"
+    restart: unless-stopped
 
   plex:
     image: linuxserver/plex
