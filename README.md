@@ -15,7 +15,6 @@
 * [NZBHydra2](https://github.com/theotherp/nzbhydra2)
 * [SABnzbd](https://sabnzbd.org/)
 * [Deluge](https://deluge-torrent.org/) (built-in dark mode)
-* [Calibre](https://calibre-ebook.com/)
 * [Calibre Web](https://github.com/janeczku/calibre-web)
 * [Portainer 2.0](https://www.portainer.io/)
 * [Watchtower](https://github.com/containrrr/watchtower)
@@ -53,7 +52,7 @@ docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml -f do
 # Main stack + VPN Protected Torrenting + Plex HW Transcoding + Custom domain & SSL certificates
 docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml -f docker-compose.plex-hw.yml -f docker-compose.traefik.yml up -d
 
-# Main stack + VPN Protected Torrenting + Plex HW Transcoding + Custom domain & SSL certificates + Calibre
+# Main stack + VPN Protected Torrenting + Plex HW Transcoding + Custom domain & SSL certificates + Calibre Web
 docker-compose -f docker-compose.yml -f docker-compose.torrents-on-vpn.yml -f docker-compose.plex-hw.yml -f docker-compose.traefik.yml -f docker-compose.books.yml up -d
 ```
 
