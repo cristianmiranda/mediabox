@@ -92,7 +92,7 @@ EOT
 ```
 
 ## Sonarr/Radarr << Deluge/SABnzbd
-This setup follows the best practices mentioned on [this reddit post](https://www.reddit.com/r/usenet/wiki/docker#wiki_the_best_docker_setup), therefore you'll have to map Sonarr/Radarr volumes to Deluge's/SABnzbd's to be able to use hardlinks and/or perform atomic "move" operations instead of "copy+delete" (which takes longer and requires more space).
+This setup follows best practices mentioned on [this article](https://wiki.servarr.com/Docker_Guide#The_Best_Docker_Setup), therefore you'll have to map Sonarr/Radarr volumes to Deluge's/SABnzbd's to be able to use hardlinks and/or perform atomic "move" operations instead of "copy+delete" (which takes longer and requires more space).
 
 ![](https://i.imgur.com/AHOQVXh.png)
 
