@@ -268,7 +268,7 @@ services:
     ports:
       - 8200:8200
     labels:
-      - com.centurylinklabs.duplicati.enable=true
+      - com.centurylinklabs.watchtower.enable=true
       - traefik.enable=true
       - traefik.http.routers.duplicati.rule=Host(`duplicati.${DOMAIN}`)
       - traefik.http.routers.duplicati.entrypoints=websecured
