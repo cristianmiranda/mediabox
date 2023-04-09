@@ -48,3 +48,27 @@ services:
       - ${CONTAINERS}/audiobookshelf/config:/config
       - ${CONTAINERS}/audiobookshelf/metadata:/metadata
     restart: unless-stopped
+
+  readarr:
+    container_name: readarr
+    image: cr.hotio.dev/hotio/readarr
+    networks:
+      default:
+        ipv4_address: 172.20.2.8
+    ports:
+      - 8787:8787
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.readarr.rule=Host(`readarr.${DOMAIN}`)
+      - traefik.http.routers.readarr.entrypoints=websecured
+      - traefik.http.routers.readarr.tls.certresolver=myresolver
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - ${CONTAINERS}/readarr/config:/config
+      - ${DATA}:/data
+    restart: unless-stopped
