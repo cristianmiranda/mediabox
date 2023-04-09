@@ -24,3 +24,27 @@ services:
       - ${CONTAINERS}/calibre-web/config:/config
       - ${CONTAINERS}/calibre-web/books:/books
     restart: unless-stopped
+
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    container_name: audiobookshelf
+    networks:
+      default:
+        ipv4_address: 172.20.2.7
+    ports:
+      - 13378:80
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.audiobookshelf.rule=Host(`audiobookshelf.${DOMAIN}`)
+      - traefik.http.routers.audiobookshelf.entrypoints=websecured
+      - traefik.http.routers.audiobookshelf.tls.certresolver=myresolver
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ${CONTAINERS}/audiobookshelf/audiobooks:/audiobooks
+      - ${CONTAINERS}/audiobookshelf/podcasts:/podcasts
+      - ${CONTAINERS}/audiobookshelf/config:/config
+      - ${CONTAINERS}/audiobookshelf/metadata:/metadata
+    restart: unless-stopped
