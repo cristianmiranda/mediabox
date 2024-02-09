@@ -91,6 +91,24 @@ YourVPNP4ssw0rD
 EOT
 ```
 
+## Claiming Plex Server
+If you have a custom DNS server (like Pi-hole) you might want to add these to your `/etc/hosts` file:
+
+See more @ https://forums.plex.tv/t/cannot-access-plex-tv-only-on-specific-pc/668567/25
+
+```conf
+99.81.153.144 my.plexapp.com 3 # added by VPN ByPASS
+99.81.164.127 SAME AS ABOVE
+108.128.10.254 SAME AS ABOVE
+104.20.12.29 plexapp.com 1
+104.20.13.29 plexapp.com 1
+99.80.231.223 plex.tv
+99.81.213.165 plex.tv
+99.80.242.242 plex.tv
+45.33.73.250 pubsub.plex.tv
+172.104.211.98 pubsub.plex.tv
+```
+
 ## Sonarr/Radarr << Deluge/SABnzbd
 This setup follows best practices mentioned on [this article](https://wiki.servarr.com/Docker_Guide#The_Best_Docker_Setup), therefore you'll have to map Sonarr/Radarr volumes to Deluge's/SABnzbd's to be able to use hardlinks and/or perform atomic "move" operations instead of "copy+delete" (which takes longer and requires more space).
 
