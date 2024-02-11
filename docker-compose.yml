@@ -54,9 +54,7 @@ services:
     ports:
       - 8989:8989
     depends_on:
-      - sabnzbd
-      - jackett
-      - nzbhydra2
+      - prowlarr
     labels:
       - com.centurylinklabs.watchtower.enable=true
       - traefik.enable=true
@@ -82,9 +80,7 @@ services:
     ports:
       - 7878:7878
     depends_on:
-      - sabnzbd
-      - jackett
-      - nzbhydra2
+      - prowlarr
     labels:
       - com.centurylinklabs.watchtower.enable=true
       - traefik.enable=true
@@ -125,52 +121,6 @@ services:
     volumes:
       - ${CONTAINERS}/bazarr/config:/config
       - ${DATA}:/data
-    restart: unless-stopped
-
-  jackett:
-    image: linuxserver/jackett
-    container_name: jackett
-    networks:
-      default:
-        ipv4_address: 172.20.1.5
-    ports:
-      - 9117:9117
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-      - traefik.enable=true
-      - traefik.http.routers.jackett.rule=Host(`jackett.${DOMAIN}`)
-      - traefik.http.routers.jackett.entrypoints=websecured
-      - traefik.http.routers.jackett.tls.certresolver=myresolver
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TIMEZONE}
-      - AUTO_UPDATE=true
-    volumes:
-      - ${CONTAINERS}/jackett/config:/config
-    restart: unless-stopped
-
-  nzbhydra2:
-    image: linuxserver/nzbhydra2
-    container_name: nzbhydra2
-    networks:
-      default:
-        ipv4_address: 172.20.1.6
-    ports:
-      - 5076:5076
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-      - traefik.enable=true
-      - traefik.http.routers.nzbhydra.rule=Host(`nzbhydra.${DOMAIN}`)
-      - traefik.http.routers.nzbhydra.entrypoints=websecured
-      - traefik.http.routers.nzbhydra.tls.certresolver=myresolver
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TIMEZONE}
-    volumes:
-      - ${CONTAINERS}/nzbhydra2/config:/config
-      - ${DOWNLOADS}/nzbhydra2:/downloads
     restart: unless-stopped
 
   prowlarr:
