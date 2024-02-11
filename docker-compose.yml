@@ -173,6 +173,29 @@ services:
       - ${DOWNLOADS}/nzbhydra2:/downloads
     restart: unless-stopped
 
+  prowlarr:
+    image: linuxserver/prowlarr
+    container_name: prowlarr
+    networks:
+      default:
+        ipv4_address: 172.20.1.7
+    ports:
+      - 9696:9696
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.prowlarr.rule=Host(`prowlarr.${DOMAIN}`)
+      - traefik.http.routers.prowlarr.entrypoints=websecured
+      - traefik.http.routers.prowlarr.tls.certresolver=myresolver
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+      - AUTO_UPDATE=true
+    volumes:
+      - ${CONTAINERS}/prowlarr/config:/config
+    restart: unless-stopped
+
   sabnzbd:
     image: linuxserver/sabnzbd
     container_name: sabnzbd
